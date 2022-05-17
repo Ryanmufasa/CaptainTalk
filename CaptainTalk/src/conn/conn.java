@@ -24,11 +24,11 @@ public class conn {
 				try {
 					con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "hr", "hr");
 				} catch (SQLException e) {
-					System.out.println("¢Ë¢Ë¢Ë¢Ë¢Ë¼­¹ö¿Í ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.¢Ë¢Ë¢Ë¢Ë¢Ë");
+					System.out.println("â–¦â–¦â–¦â–¦â–¦ì„œë²„ì™€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.â–¦â–¦â–¦â–¦â–¦");
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("conn.conn; ("+address+")Á¢¼Ó ¼º°ø");
+				System.out.println("conn.conn; ("+address+")ì ‘ì† ì„±ê³µ");
 		}
 		
 } // Conn class-end

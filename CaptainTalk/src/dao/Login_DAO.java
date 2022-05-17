@@ -26,18 +26,18 @@ public class Login_DAO {
 				ps=con.prepareStatement(sql);
 				ps.setString(1, id);
 				ps.setString(2, pw);
-				rowcnt = ps.executeUpdate(); // ID/PW ÀÏÄ¡ Ã¼Å©
+				rowcnt = ps.executeUpdate(); // ID/PW ì¼ì¹˜ ì²´í¬
 			} catch(SQLException e){
-				System.out.println("Login_DAO.login ID/PW ÀÏÄ¡ Ã¼Å© ¿¡·¯");
+				System.out.println("Login_DAO.login ID/PW ì¼ì¹˜ ì²´í¬ ì—ëŸ¬");
 				return false;
 	    	}finally {
 	    		try { rs.close(); } catch (Exception e) { /* ignored */ }
 			    try { ps.close(); } catch (Exception e) { /* ignored */ }
 	    	}	
 
-			if(rowcnt == 1) { // ID/PW°¡ ÀÏÄ¡ÇÒ °æ¿ì
+			if(rowcnt == 1) { // ID/PWê°€ ì¼ì¹˜í•  ê²½ìš°
 				
-				System.out.println("Login_DAO.login; ·Î±×ÀÎ ¿Ï·á");
+				System.out.println("Login_DAO.login; ë¡œê·¸ì¸ ì™„ë£Œ");
 				return true;
 			}else {
 				return false;

@@ -33,9 +33,9 @@ public class Newaccount_DAO {
 		    //try { ps.close(); } catch (Exception e) { /* ignored */ }
 		    //try { con.close(); } catch (Exception e) { /* ignored */ }
     	}	
-		if(rowcnt == 0) { // ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾ÊÀ»°æ¿ì
+		if(rowcnt == 0) { // ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•Šì„ê²½ìš°
 			sql = "INSERT INTO userinfo VALUES (?, ?, 0, SYSDATE + 9/24, 0, 0)";
-										//¼­¹ö Å¸ÀÌÁ¸ ¹®Á¦·Î, 9½Ã°£ ´õÇÔ.(GMT+9)
+										//ì„œë²„ íƒ€ì´ì¡´ ë¬¸ì œë¡œ, 9ì‹œê°„ ë”í•¨.(GMT+9)
 			try {
 				ps=con.prepareStatement(sql);
 				ps.setString(1, id);
