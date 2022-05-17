@@ -3,6 +3,7 @@
     <wb-module deploy-name="CaptainTalk">
                 
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/" source-path="/src"/>
                 
         <property name="context-root" value="CaptainTalk"/>
                 
