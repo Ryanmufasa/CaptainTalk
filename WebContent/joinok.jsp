@@ -14,9 +14,9 @@
 	String phone3 = request.getParameter("phone3");
 	
 	// 1.변수선언
-	String url = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
-	String uid = "JSP";
-	String upw = "JSP";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "hr";
+	String upw = "hr";
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
