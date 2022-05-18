@@ -19,9 +19,12 @@ public class Login_DAO {
 		public Login_DAO() {
 			con = new conn("Login_DAO").getConnection();
 		}
-
+		
+		
+		
+		
 		public boolean login(String id, String pw)  {	
-			String sql = "SELECT * FROM USERINFO WHERE id = ? AND pw = ?";
+			String sql = "SELECT * FROM MEMBER WHERE id = ? AND pw = ?";
 			try {
 				ps=con.prepareStatement(sql);
 				ps.setString(1, id);

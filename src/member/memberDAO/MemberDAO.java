@@ -139,29 +139,23 @@ public class MemberDAO {
 	
 	
 	// 로그인 확인
-	public MemberVO checkLogin(MemberVO vo) {
-		
-		String sql = "select * from member where id=?, password=?";
-		
+	public int login(String userID, String userPassword) {
+		String sql = "SELECT userPassword FROM user WHERE userID = ?";
 		try {
-			con = ds.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, vo.getId());
-			ps.setString(2, vo.getPassword());
-			rs = ps.executeQuery();
-			vo = selectMember(rs); 
-		}catch(SQLException e) {
-			System.out.println("login 실패");
-			
-		}finally {
-			try {
-				if(ps != null) ps.close();
-				if(con != null) con.close();
-			}catch (SQLException e) {
-				e.printStackTrace();
+			ps = con.prepareStatement(sql); //sql쿼리문을 대기 시킨다
+			ps.setString(1, userID); //첫번째 '?'에 매개변수로 받아온 'userID'를 대입
+			rs = ps.executeQuery(); //쿼리를 실행한 결과를 rs에 저장
+			if(rs.next()) {
+				if(rs.getString(1).equals(userPassword)) {
+					return 1; //로그인 성공
+				}else
+					return 0; //비밀번호 틀림
 			}
+			return -1; //아이디 없음
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		return vo;  
+		return -2; //DB오류
 	}
 	
 	
@@ -295,7 +289,6 @@ public class MemberDAO {
 		return frlist;
 		
 	}
-	
 	
 	
 	

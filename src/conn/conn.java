@@ -22,7 +22,7 @@ public class conn {
 				}
 				
 				try {
-					con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "hr", "hr");
+					con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","captaintalk", "captaintalk");
 				} catch (SQLException e) {
 					System.out.println("▦▦▦▦▦서버와 연결되지 않았습니다.▦▦▦▦▦");
 					// TODO Auto-generated catch block
