@@ -9,10 +9,11 @@ public class MemberVO {
 	private String tel1;
 	private String tel2;
 	private String tel3;
+	private String friends;
 	
 	public MemberVO() {}
 	
-	public MemberVO(int no, String id, String password, String name, String tel1, String tel2, String tel3) {
+	public MemberVO(int no, String id, String password, String name, String tel1, String tel2, String tel3, String friends) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -21,6 +22,7 @@ public class MemberVO {
 		this.tel1 = tel1;
 		this.tel2 = tel2;
 		this.tel3 = tel3;
+		this.friends = friends;
 	}
 	public int getNo() {
 		return no;
@@ -63,6 +65,14 @@ public class MemberVO {
 	}
 	public void setTel3(String tel3) {
 		this.tel3 = tel3;
+	}
+
+	public String getFriends() {
+		return friends;
+	}
+
+	public void setFriends(String friends) {
+		this.friends = friends;
 	}
 	
 

@@ -64,13 +64,16 @@ public class MemberDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				MemberVO vo = new MemberVO();
-				vo.setNo(rs.getInt("no"));
-				vo.setId(rs.getString("id"));
-				vo.setPassword(rs.getString("password"));
-				vo.setName(rs.getString("name"));
-				vo.setTel1(rs.getString("tel1"));
-				vo.setTel2(rs.getString("tel2"));
-				vo.setTel3(rs.getString("tel3"));
+				vo = selectMember(rs);
+			
+				//vo.setNo(rs.getInt("no"));
+				//vo.setId(rs.getString("id"));
+				//vo.setPassword(rs.getString("password"));
+				//vo.setName(rs.getString("name"));
+				//vo.setTel1(rs.getString("tel1"));
+				//vo.setTel2(rs.getString("tel2"));
+				//vo.setTel3(rs.getString("tel3"));
+
 				list.add(vo);
 			}
 			
@@ -162,7 +165,7 @@ public class MemberDAO {
 	}
 	
 	
-	// 회원 1명 불러올 때 사용 
+	// 회원 1명 불러올 때 사용 (DB에 등록된 회원일때만 사용)  
 	private MemberVO selectMember(ResultSet rs) {
 		
 		MemberVO vo = null;
@@ -238,6 +241,59 @@ public class MemberDAO {
 		}
 		
 		return check;  // true -> 회원 삭제 성공, false -> 회원 삭제 필패 
+	}
+	
+	
+	// 회원 친구 목록 조회 
+	public List<MemberVO> selectFriends(MemberVO vo){
+		
+		ArrayList<MemberVO> frlist = new ArrayList<MemberVO>();
+		// 친구 목록 담을 공간 
+		
+		String sql = "select f.id, f.name "
+				+ "from member f, "
+					+ "(select regexp_substr(m.friends, '[^,]+', 1, level) as no "
+				    + "from "
+						+ "(select friends as friends "
+						+ "from member where no=?) m "
+					+ "connect by level <= length(regexp_replace(m.friends, '[^,]+', ''))+ 1"
+					+ ") m "
+					+ "where f.no = m.no";
+		// member 테이블 f 와 서브쿼리의 결과( , 이 포함된 문자열 데이터)를 행으로 구분지어 출력하는 서브쿼리 만든 테이블 m 이 조인 
+		// m 은 친구 목록을 조회하는 회원, f는 m 의 친구목록에 저장된 친구 
+		
+		try{
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, vo.getNo());
+			rs = ps.executeQuery();
+			while(rs.next()) { // 저장된 친구 목록이 조회되면 
+				MemberVO vo1 = new MemberVO();
+				vo1 = selectMember(rs); 
+				
+				frlist.add(vo1);
+				
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(ps != null) ps.close();
+				if(con != null) con.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(frlist.isEmpty()) {
+			frlist = null;
+		}else {
+			frlist.trimToSize();
+		}
+			
+		return frlist;
+		
 	}
 	
 	
