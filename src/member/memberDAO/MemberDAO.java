@@ -143,8 +143,8 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, "id");
-			ps.setString(2, "pw");
+			ps.setString(1, vo.getId());
+			ps.setString(2, vo.getPassword());
 			rs = ps.executeQuery();
 			vo = selectMember(rs); 
 		}catch(SQLException e) {
@@ -161,6 +161,8 @@ public class MemberDAO {
 		return vo;  
 	}
 	
+	
+	// 회원 1명 불러올 때 사용 
 	private MemberVO selectMember(ResultSet rs) {
 		
 		MemberVO vo = null;
@@ -175,6 +177,72 @@ public class MemberDAO {
 		
 		return vo;
 	}
+	
+	
+	
+	// 회원 정보 수정 
+	public boolean updateMember(MemberVO vo) {
+		
+		boolean check = false;
+		
+		String sql = "update member set email = ?,tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
+		
+		try {
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(2, vo.getTel1());
+			ps.setString(3, vo.getTel2());
+			ps.setString(4, vo.getTel3());
+			ps.setInt(5, vo.getNo());
+			if(ps.executeUpdate() != 0) {
+				check = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(ps != null) ps.close();
+				if(con != null) con.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return check;  // true -> 정보 수정 성공, false -> 정보 수정 실패 
+	}
+	
+	
+	// 회원 삭제  또는  탈퇴 
+	public boolean deleteMember(MemberVO vo) {
+		
+		boolean check = false;
+		
+		String sql="delete member where no=?";
+		
+		try {
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, vo.getNo());
+			if(ps.executeUpdate() != 0) {
+				check = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(ps != null) ps.close();
+				if(con != null) con.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return check;  // true -> 회원 삭제 성공, false -> 회원 삭제 필패 
+	}
+	
+	
+	
+	
 	
 	
 	
