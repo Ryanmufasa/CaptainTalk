@@ -29,10 +29,10 @@
 		<textarea rows="10" cols="50" readonly id="ta1"></textarea> <br>
 		
 		<h3>닉네임</h3>
-		<input type="text" id="who1" value="홍길동">
+		<input type="text" id="who1" placeholder="한번정하면 수정불가">
 		
 		<h3>보낼 글 </h3>
-		<input type="text" id="chat1" onkeyup="enterkey()">
+		<input type="text" id="chat1" onkeyup="enterkey()" placeholder="이곳에메세지입력">
 		<!-- onkeyup : down이 누르는거고 on 은 눌렀다 뗐을 때  -->
 		
 		<input type="submit" value="가자" onclick="kajaChool();">
@@ -63,14 +63,9 @@
 	
 	<script>
 	
-	// ws(웹 소켓) 은 시작을 http 로 했다가 websocket 으로 바뀜.
-	//  -> 서버에서도 websocket에 접근이 가능.. 따라서 상호요청이 가능한 것. 
+
 	var ws1 = new WebSocket("ws://localhost:8080" + "<%=request.getContextPath()%>/kaja");
-	// request 가 가지고 있는 메소드 중 하나 .getContextPath() : 프로젝트 경로를 찾아감. 
-	// 프로젝트경로/kaja 로 가는 것. 
-	// .java 에도 @ServerEndpoint("/kaja") 로 되어 있음. 
-	
-	// index.jsp 를 실행하면 url 주소창에는 index.jsp 로 끝나겠지만 실제 찾아가는 곳은 /kaja 라는 것. 
+
 	
 	var chat1 = document.getElementById('chat1');
 	var ta1 = document.getElementById('ta1');
@@ -100,8 +95,7 @@
 					//내이름이 aaa이면 /waaa:방가방가 로 귓속말을 보내므로
 				if(mesg1.match("\w"+"["+who1.value+"]")) // /aaa인 나에게 왔을 경우
 					ta1.value += "(귓속말)" + sendwho1+ " ~ " + ma[1] + "\n";
-				//mal1[1]에는 : 다음에 있는 "방가방가"가 들어있으므로
-				//(귓속말)[보낸사람] ~방가방가
+
 			}
 			else
 				ta1.value += sendwho1 + "  " + mesg1 + "\n"; //귓속말 아님
