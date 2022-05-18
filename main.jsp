@@ -75,7 +75,8 @@
 				//입력한(data) [사용자명] 메시지내용 에서 ]를 기준으로 index[0], index[1]로 나눔
 		var sendwho1 = sendchat[0]+"]";
 		var mesg1 = sendchat[1];
-		var mal = sendchat[1].split(":");
+		var mal0 = "o" + sendchat[1];
+		var mal = (sendchat[1]+"]"+sendchat[2]).split(":");
 		// \w[귓속말 할 상대방 사용자명]:메시지 입력
 		
 		var sendchat1 = mesg1.split("]"); // \w[상대방 사용자명]:메시지내용 에서 ']'을 기준으로 나눔
