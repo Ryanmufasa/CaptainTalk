@@ -103,35 +103,34 @@
 		window.onload = function() {
 			if (window.Notification) {
 				Notification.requestPermission();
-				//크롬 우측상단에서 아이콘을 눌러 알림부분
-				//or
-				setTime(function() {
+				//알람권한을 허용받는다
+				setTimeout(function() {
 					kaja();
-				},1000); //7초후에 kaja를 호출
-				
+				},2000); //n초후에 kaja를 호출
 			}
 		}
 		
-		
 		function kaja() {
 			if (Notification.permission != "granted") { // denied
-				alert("알림허용이 안되어 있음");//7초후에 알림허용이 아닐 때 이 메시지
+				alert("알림허용이 안되어 있음"); //n초후에 알림허용이 아닐 때 이 메시지
+				//var noti0 = new Notification("알림허용 안돼 있음");
 			}
 			else { // 아래 내용아 화면 우측 아래에 알림으로 뜬다
 				//알림객체 생성시 알림 출력할 제목, 아이콘 ,실제 문장등을 인자로 넣는다
 				var noti1 = new Notification("즐거운 chat하세요", {
-					icon: "bed.jpg", //pixabay에서 받아서 index.jsp와 같은 위치에 넣는다
+					icon: "happy.jpg", //pixabay에서 받아서 index.jsp와 같은 위치에 넣는다
 					body: "클릭하면 즐거운 홈페이지가 열립니다"
 				});
 			
-			noti1.onclick = function() { // 알림 메시지를 클릭하면 아래 사이트가 열린다
-				alert("감사합니다")
-				window.open("http://www.naver.com");
-				//이거는 pc 우측아래에 hwp한글 upgrade 알림이 들 때 내가 클릭하면
-				// 한글 upgrade 사이트로 가서 진행되는 것과 같다
-				};
+				noti1.onclick = function() { // 알림 메시지를 클릭하면 아래 사이트가 열린다
+					//alert("naver로 이동합니다")
+					window.open("http://www.naver.com");
+					//이거는 pc 우측아래에 hwp한글 upgrade 알림이 들 때 내가 클릭하면
+					// 한글 upgrade 사이트로 가서 진행되는 것과 같다
+				}
 			}
 		}
+			
 	</script>
 </body>
 </html>
