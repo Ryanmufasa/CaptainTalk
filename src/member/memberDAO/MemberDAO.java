@@ -21,13 +21,12 @@ public class MemberDAO {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	
-	public MemberDAO() {}
-	
-	private static MemberDAO instance = new MemberDAO();
+	private static MemberDAO instance;
 	// = new MemberDAO()
 	// MemberDAO 클래스도 계속 지속적으로 사용해야 하므로 
 	// static 객체를 생성하고 호출시에는 instance 를 호출하면 됩니다. 
+	
+	private MemberDAO() {}
 	
 	public static MemberDAO getInstance() {
 		if(instance == null) {
@@ -41,11 +40,9 @@ public class MemberDAO {
 	static {
 		try {
 
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			ds = (DataSource)envCtx.lookup("jdbc/oracle");
-			con = ds.getConnection();
-		}catch(NamingException | SQLException e) {
+			Context context = new InitialContext();
+			ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		}catch(NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -102,12 +99,13 @@ public class MemberDAO {
 	
 	
 	// 회원 가입 
-	
 	public boolean insertJoin(MemberVO vo) {
+		//String id, String password, String name, 
+		// String tel1, String tel2, String tel3
+		boolean check = false; 
 		
-		boolean check = false;
-		
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?)";
+		String sql = "insert into member "
+				+ "values(?,?,?,?,?,?,?)";
 		
 		try {
 			con = ds.getConnection();
@@ -115,9 +113,10 @@ public class MemberDAO {
 			ps.setString(1, vo.getId());
 			ps.setString(2, vo.getPassword());
 			ps.setString(3, vo.getName());
-			ps.setString(5, vo.getTel1());
-			ps.setString(6, vo.getTel2());
-			ps.setString(7, vo.getTel3());
+			ps.setString(4, vo.getTel1());
+			ps.setString(5, vo.getTel2());
+			ps.setString(6, vo.getTel3());
+			ps.setString(7, "");
 			if(ps.executeUpdate() != 0) {
 				check = true;  
 			}
@@ -139,29 +138,34 @@ public class MemberDAO {
 	
 	
 	// 로그인 확인
-	public MemberVO checkLogin(MemberVO vo) {
+	public String checkLogin(String id, String password) { //MemberVO vo
 		
-		String sql = "select * from member where id=?, password=?";
+		String sql = "select * from member where id=? and password=?";
+		String name=null;
 		
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, vo.getId());
-			ps.setString(2, vo.getPassword());
+			ps.setString(1, id);
+			ps.setString(2, password);
 			rs = ps.executeQuery();
-			vo = selectMember(rs); 
+			if(rs.next()) {
+				name = rs.getString("name");
+			}
+			
 		}catch(SQLException e) {
 			System.out.println("login 실패");
 			
 		}finally {
 			try {
+				if(rs != null) rs.close();
 				if(ps != null) ps.close();
 				if(con != null) con.close();
 			}catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return vo;  
+		return name;  
 	}
 	
 	
@@ -188,7 +192,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql = "update member set email = ?,tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
+		String sql = "update member set tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
 		
 		try {
 			con = ds.getConnection();
@@ -297,8 +301,7 @@ public class MemberDAO {
 	}
 	
 	
-	
-	
+
 	
 	
 	

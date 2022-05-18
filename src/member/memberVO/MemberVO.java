@@ -13,6 +13,17 @@ public class MemberVO {
 	
 	public MemberVO() {}
 	
+	
+	public MemberVO(String id, String password, String name, String tel1, String tel2, String tel3) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.tel1 = tel1;
+		this.tel2 = tel2;
+		this.tel3 = tel3;
+	}
+	
 	public MemberVO(int no, String id, String password, String name, String tel1, String tel2, String tel3, String friends) {
 		super();
 		this.no = no;
