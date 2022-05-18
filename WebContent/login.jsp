@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Main Page</title>
 <style>
 
-body {
-    background-color: #F1EDCA;
-}
+/* body{color : yellow;} */
 
 /* 아이디와 비밀번호의 style */
 .input-box{ position:relative; margin:10px 0; }
@@ -41,25 +41,22 @@ input:focus + label, label{ color:#8aa1a1; font-size:10pt; pointer-events: none;
 
 /* placeholder-shown 이 사라지고 focus 되었을때 outline과 border-bottom의 색깔변경*/
 input:focus, input:not(:placeholder-shown){ border-bottom: solid 1px #8aa1a1; outline:none; }
-</style>
-<meta charset="UTF-8">
-<title>login</title>
-
-<script>
-
-	function join(){
-		window.location = "./join/join.jsp";	}
+	* {margin:0; padding:0;}
 	
-</script>
-
+	@media all and (min-width:300px) {
+		
+	
+	div {font-size: 0;}
+</style>
 </head>
 <body>
-<div class = bg>
-<img src="./picture/join.jpg" width = 200>
-<h2 id="title"> 캡틴톡</h2>
-<form>
-<!-- <form action="./join/logincheck.jsp" method="post"> -->
-
+	<center>
+	<h1> Main page </h1>
+	<div id="mq1">
+		<img src="./picture/mainImg.jpg" width=200>
+	</div><br>
+	</center>
+	<form action="check.jsp" method="get">
 <div class="input-box">
 	<input id="username" type="text" name="username" placeholder="아이디">
 	<label for="username">아이디</label>
@@ -69,11 +66,9 @@ input:focus, input:not(:placeholder-shown){ border-bottom: solid 1px #8aa1a1; ou
 	<label for="password">비밀번호</label>
 </div>
 	<input type="submit" value="로그인">
-<button onclick = "join()" value="회원가입">회원가입</button>
-
-
-</form>
-
-</div>
+	</form>
+	<form action="./join/join.jsp" method="get">
+	<input type="submit" value="회원가입">
+	</form>
 </body>
 </html>

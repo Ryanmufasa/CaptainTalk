@@ -4,15 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>join</title>
+<title>Insert title here</title>
 <style>
-
-
+	html, body {
+		height:100%; /* %가 중요하다 */
+		margin: 0;
+		padding: 0;
+	}
+	
+	#aa {
+		background-size: cover;
+		background-image: url("./picture/join.jpg");
+		background-position: center;
+		min-height: 100%;
+		border: 0;
+		padding: 0;
+	}
 </style>
 </head>
 <body>
-
-	
 
 	<h3>회원가입</h3>
 	<hr>
@@ -45,39 +55,8 @@
 			</td></tr>
 		</table>         
 			<br><hr>
-            <a href="joincheckok.jsp"><input type="button" value="회원가입" /></a>
-            <input type="button" value="취소" onclick="history.back()" />
-	</form>
-	
-	<!-- 	<form action="logincheck.jsp" method="post"> -->
-<!-- 	<div class="wrapper"> -->
-<!-- 		<div class="title"><h1 style="font-size: 21px;">회원가입</h1></div> -->
-<!-- 		<div class="name"> -->
-<!-- 			<input id="name" type="text" placeholder="이름을 입력해주세요" required/> -->
-<!-- 		</div> -->
-<!-- 		<div class="id"> -->
-<!-- 			<input id="id" type="text" placeholder="아이디를 입력해주세요" required/> -->
-<!-- 		</div> -->
-<!-- 		<div class="password"> -->
-<!-- 			<input id="password" type="password" placeholder ="비밀번호를 입력해주세요" required/> -->
-<!-- 		</div> -->
-<!-- 		<div class="passwordCheck"> -->
-<!-- 			<input id="passwordCheck" type="password" placeholder ="비밀번호를 입력해주세요" required/> -->
-<!-- 		</div> -->
-<!-- 		<div class="phone"> -->
-<!-- 			<input id="phone1" type="text" size="3" required/> -->
-<!-- 			<input id="phone2" type="text" size="3" required/> -->
-<!-- 			<input id="phone3" type="text" size="3" required/> -->
-<!-- 		</div> -->
-<!-- 		<div class="signUp"> -->
-<!-- 			<input id="signUpButton" type="submit" value="가입하기"> -->
-<!-- 			<input id="cancel" type="button" value="취소" onclick = "history.back()"> -->
-<!-- 		</div> -->
-		
-<!-- 	</div> -->
-
-<!-- 	</form> -->
-<!-- </body> -->
-
+				<input type="submit" value="회원가입">
+				<button type="button" onclick="history.back()">취소</button>
+			</form>
 </body>
 </html>
