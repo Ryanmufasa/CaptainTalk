@@ -61,13 +61,13 @@ public class MemberDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				vo = new MemberVO();
-				vo.setMem_no(rs.getInt("no"));
-				vo.setMem_id(rs.getString("id"));
-				vo.setMem_password(rs.getString("password"));
-				vo.setMem_name(rs.getString("name"));
-				vo.setMem_tel1(rs.getString("tel1"));
-				vo.setMem_tel2(rs.getString("tel2"));
-				vo.setMem_tel3(rs.getString("tel3"));
+				vo.setMem_no(rs.getInt("mem_no"));
+				vo.setMem_id(rs.getString("mem_id"));
+				vo.setMem_password(rs.getString("mem_password"));
+				vo.setMem_name(rs.getString("mem_name"));
+				vo.setMem_tel1(rs.getString("mem_tel1"));
+				vo.setMem_tel2(rs.getString("mem_tel2"));
+				vo.setMem_tel3(rs.getString("mem_tel3"));
 
 				list.add(vo);
 			}
