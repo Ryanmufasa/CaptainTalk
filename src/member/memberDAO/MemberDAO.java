@@ -13,7 +13,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import member.memberVO.MemberVO;
-//import member.memberDBConn.MemberDBConn;
 
 public class MemberDAO {
 	
@@ -21,13 +20,12 @@ public class MemberDAO {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	
-	public MemberDAO() {}
-	
-	private static MemberDAO instance = new MemberDAO();
+	private static MemberDAO instance;
 	// = new MemberDAO()
 	// MemberDAO 클래스도 계속 지속적으로 사용해야 하므로 
 	// static 객체를 생성하고 호출시에는 instance 를 호출하면 됩니다. 
+	
+	private MemberDAO() {}
 	
 	public static MemberDAO getInstance() {
 		if(instance == null) {
@@ -41,11 +39,9 @@ public class MemberDAO {
 	static {
 		try {
 
-			Context initCtx = new InitialContext();
-			Context envCtx = (Context) initCtx.lookup("java:comp/env");
-			ds = (DataSource)envCtx.lookup("jdbc/oracle");
-			con = ds.getConnection();
-		}catch(NamingException | SQLException e) {
+			Context context = new InitialContext();
+			ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		}catch(NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -57,22 +53,21 @@ public class MemberDAO {
 		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		
 		String sql = "select * from member"; 
+		MemberVO vo = null;
 		
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				MemberVO vo = new MemberVO();
-				vo = selectMember(rs);
-			
-				//vo.setNo(rs.getInt("no"));
-				//vo.setId(rs.getString("id"));
-				//vo.setPassword(rs.getString("password"));
-				//vo.setName(rs.getString("name"));
-				//vo.setTel1(rs.getString("tel1"));
-				//vo.setTel2(rs.getString("tel2"));
-				//vo.setTel3(rs.getString("tel3"));
+				vo = new MemberVO();
+				vo.setMem_no(rs.getInt("no"));
+				vo.setMem_id(rs.getString("id"));
+				vo.setMem_password(rs.getString("password"));
+				vo.setMem_name(rs.getString("name"));
+				vo.setMem_tel1(rs.getString("tel1"));
+				vo.setMem_tel2(rs.getString("tel2"));
+				vo.setMem_tel3(rs.getString("tel3"));
 
 				list.add(vo);
 			}
@@ -102,22 +97,24 @@ public class MemberDAO {
 	
 	
 	// 회원 가입 
-	
 	public boolean insertJoin(MemberVO vo) {
+		//String id, String password, String name, 
+		// String tel1, String tel2, String tel3
+		boolean check = false; 
 		
-		boolean check = false;
-		
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?)";
+		String sql = "insert into member "
+				+ "values(?,?,?,?,?,?,?)";
 		
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, vo.getId());
-			ps.setString(2, vo.getPassword());
-			ps.setString(3, vo.getName());
-			ps.setString(5, vo.getTel1());
-			ps.setString(6, vo.getTel2());
-			ps.setString(7, vo.getTel3());
+			ps.setString(1, vo.getMem_id());
+			ps.setString(2, vo.getMem_password());
+			ps.setString(3, vo.getMem_name());
+			ps.setString(4, vo.getMem_tel1());
+			ps.setString(5, vo.getMem_tel2());
+			ps.setString(6, vo.getMem_tel3());
+			ps.setString(7, "");
 			if(ps.executeUpdate() != 0) {
 				check = true;  
 			}
@@ -139,23 +136,33 @@ public class MemberDAO {
 	
 	
 	// 로그인 확인
-	public int login(String userID, String userPassword) {
-		String sql = "SELECT userPassword FROM user WHERE userID = ?";
+	public MemberVO checkLogin( MemberVO vo) { //MemberVO vo
+		
+		String sql = "select * from member where mem_id=? and mem_password=?";
+		//boolean check = false;
+		
 		try {
-			ps = con.prepareStatement(sql); //sql쿼리문을 대기 시킨다
-			ps.setString(1, userID); //첫번째 '?'에 매개변수로 받아온 'userID'를 대입
-			rs = ps.executeQuery(); //쿼리를 실행한 결과를 rs에 저장
-			if(rs.next()) {
-				if(rs.getString(1).equals(userPassword)) {
-					return 1; //로그인 성공
-				}else
-					return 0; //비밀번호 틀림
+			con = ds.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getMem_id());
+			ps.setString(2, vo.getMem_password());
+			rs = ps.executeQuery();
+			vo = selectMember(rs);
+				//check=true;
+		
+		}catch(SQLException e) {
+			System.out.println("login 실패");
+			
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+				if(con != null) con.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
 			}
-			return -1; //아이디 없음
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
-		return -2; //DB오류
+		return vo;  
 	}
 	
 	
@@ -167,6 +174,13 @@ public class MemberDAO {
 		try {
 			if(rs.next()) {
 				vo = new MemberVO();
+				vo.setMem_no(rs.getInt("mem_no"));
+				vo.setMem_id(rs.getString("mem_id"));
+				vo.setMem_password(rs.getString("mem_password"));
+				vo.setMem_name(rs.getString("mem_name"));
+				vo.setMem_tel1(rs.getString("mem_tel1"));
+				vo.setMem_tel2(rs.getString("mem_tel2"));
+				vo.setMem_tel3(rs.getString("mem_tel3"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,15 +196,15 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql = "update member set email = ?,tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
+		String sql = "update member set tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
 		
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(2, vo.getTel1());
-			ps.setString(3, vo.getTel2());
-			ps.setString(4, vo.getTel3());
-			ps.setInt(5, vo.getNo());
+			ps.setString(2, vo.getMem_tel1());
+			ps.setString(3, vo.getMem_tel2());
+			ps.setString(4, vo.getMem_tel3());
+			ps.setInt(5, vo.getMem_no());
 			if(ps.executeUpdate() != 0) {
 				check = true;
 			}
@@ -219,7 +233,7 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, vo.getNo());
+			ps.setInt(1, vo.getMem_no());
 			if(ps.executeUpdate() != 0) {
 				check = true;
 			}
@@ -239,59 +253,59 @@ public class MemberDAO {
 	
 	
 	// 회원 친구 목록 조회 
-	public List<MemberVO> selectFriends(MemberVO vo){
-		
-		ArrayList<MemberVO> frlist = new ArrayList<MemberVO>();
-		// 친구 목록 담을 공간 
-		
-		String sql = "select f.id, f.name "
-				+ "from member f, "
-					+ "(select regexp_substr(m.friends, '[^,]+', 1, level) as no "
-				    + "from "
-						+ "(select friends as friends "
-						+ "from member where no=?) m "
-					+ "connect by level <= length(regexp_replace(m.friends, '[^,]+', ''))+ 1"
-					+ ") m "
-					+ "where f.no = m.no";
-		// member 테이블 f 와 서브쿼리의 결과( , 이 포함된 문자열 데이터)를 행으로 구분지어 출력하는 서브쿼리 만든 테이블 m 이 조인 
-		// m 은 친구 목록을 조회하는 회원, f는 m 의 친구목록에 저장된 친구 
-		
-		try{
-			con = ds.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, vo.getNo());
-			rs = ps.executeQuery();
-			while(rs.next()) { // 저장된 친구 목록이 조회되면 
-				MemberVO vo1 = new MemberVO();
-				vo1 = selectMember(rs); 
-				
-				frlist.add(vo1);
-				
-			}
-			
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(ps != null) ps.close();
-				if(con != null) con.close();
-			}catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(frlist.isEmpty()) {
-			frlist = null;
-		}else {
-			frlist.trimToSize();
-		}
-			
-		return frlist;
-		
-	}
+//	public List<MemberVO> selectFriends(MemberVO vo){
+//		
+//		ArrayList<MemberVO> frlist = new ArrayList<MemberVO>();
+//		// 친구 목록 담을 공간 
+//		
+//		String sql = "select f.id, f.name "
+//				+ "from member f, "
+//					+ "(select regexp_substr(m.friends, '[^,]+', 1, level) as no "
+//				    + "from "
+//						+ "(select friends as friends "
+//						+ "from member where no=?) m "
+//					+ "connect by level <= length(regexp_replace(m.friends, '[^,]+', ''))+ 1"
+//					+ ") m "
+//					+ "where f.no = m.no";
+//		// member 테이블 f 와 서브쿼리의 결과( , 이 포함된 문자열 데이터)를 행으로 구분지어 출력하는 서브쿼리 만든 테이블 m 이 조인 
+//		// m 은 친구 목록을 조회하는 회원, f는 m 의 친구목록에 저장된 친구 
+//		
+//		try{
+//			con = ds.getConnection();
+//			ps = con.prepareStatement(sql);
+//			ps.setInt(1, vo.getMem_no());
+//			rs = ps.executeQuery();
+//			while(rs.next()) { // 저장된 친구 목록이 조회되면 
+//				MemberVO vo1 = new MemberVO();
+//				vo1 = selectMember(rs); 
+//				
+//				frlist.add(vo1);
+//				
+//			}
+//			
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				if(ps != null) ps.close();
+//				if(con != null) con.close();
+//			}catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		if(frlist.isEmpty()) {
+//			frlist = null;
+//		}else {
+//			frlist.trimToSize();
+//		}
+//			
+//		return frlist;
+//		
+//	}
 	
 	
-	
+
 	
 	
 	

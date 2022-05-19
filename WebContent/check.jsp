@@ -1,53 +1,43 @@
-<%@page import="java.io.PrintWriter"%>
-<%@page import="member.memberVO.MemberVO"%>
-<%@page import="member.memberDAO.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("utf-8"); %>
-<jsp:useBean id="user" class="member.memberVO.MemberVO" scope="page" />
-<jsp:setProperty name="user" property="id" />
-<jsp:setProperty name="user" property="password" />
-    
-    
-<!-- 한명의 회원정보를 담는 member클래스를 자바빈즈로 사용 -->
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>JSP 게시판 웹 사이트</title>
-</head>
-<body>
+    <%@page import="member.memberDAO.MemberDAO"%>
+    <%@page import="member.memberVO.MemberVO"%>
+
 <%
-	MemberDAO memberDAO = new MemberDAO();
-	int result = memberDAO.login(user.getId(), user.getPassword());
-	if(result == 1){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인 성공')");
-		script.println("location.href='cahtlist.jsp'");
-		script.println("</script>");
-	}else if(result == 0){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('비밀번호가 틀립니다')");
-		script.println("history.back()");
-		script.println("</script>");
-	}else if(result == -1){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('존재하지 않는 아이디입니다')");
-		script.println("history.back()");
-		script.println("</script>");
-	}else if(result == -2){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('데이터베이스 오류입니다')");
-		script.println("history.back()");
-		script.println("</script>");
+
+	request.setCharacterEncoding("UTF-8");
+
+	String id = request.getParameter("id");
+	String pw = request.getParameter("pw");
+	
+	MemberVO vo = new MemberVO();
+	vo.setMem_id(id);
+	vo.setMem_password(pw);
+	//vo.setMem_id(request.getParameter("id"));
+	//vo.setMem_password(request.getParameter("pw"));
+	
+	MemberDAO dao = MemberDAO.getInstance();
+	
+	//vo = dao.checkLogin(vo);
+	
+	//String name = dao.checkLogin(id, pw);
+	
+	vo = dao.checkLogin(vo);
+	
+	boolean check = false;
+	String msg = null;
+
+	if(vo!=null){
+		msg = vo.getMem_name() + "님이 로그인 하셨습니다.";
+		check = true;
+	
+	}else{
+		msg = "아이디 혹은 비밀번호가 잘못되었습니다.";
 	}
 	
-%>
+	request.setAttribute("check", check);
+	request.setAttribute("msg", msg);
+	
+	pageContext.forward("result.jsp");
 
-</body>
-</head>
-</html>
+%>

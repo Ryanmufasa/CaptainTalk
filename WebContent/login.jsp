@@ -50,25 +50,28 @@ input:focus, input:not(:placeholder-shown){ border-bottom: solid 1px #8aa1a1; ou
 </style>
 </head>
 <body>
-	<center>
+<div align="center"></div>
 	<h1> Main page </h1>
 	<div id="mq1">
 		<img src="./picture/mainImg.jpg" width=200>
 	</div><br>
-	</center>
-	<form action="check.jsp" method="get">
+	
+	<form action="check.jsp" method="post">
 <div class="input-box">
-	<input id="username" type="text" name="username" placeholder="아이디">
-	<label for="username">아이디</label>
+	<input id="id" type="text" name="id" placeholder="아이디">
+	<label for="id">아이디</label>
 </div>
 <div class="input-box">
-	<input id="password" type="password" name="password" placeholder="비밀번호">
-	<label for="password">비밀번호</label>
+	<input id="pw" type="password" name="pw" placeholder="비밀번호">
+	<label for="pw">비밀번호</label>
 </div>
 	<input type="submit" value="로그인">
 	</form>
 	<form action="./join/join.jsp" method="get">
 	<input type="submit" value="회원가입">
 	</form>
+	
+	
+	
 </body>
 </html>
