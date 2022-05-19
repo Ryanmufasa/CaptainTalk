@@ -127,7 +127,7 @@ public class MemberDAO {
 			}
 		}
 		 
-		return true;
+		return check;
 		// check가 true 로 리턴 -> 회원가입 성공
 		// false 로 리턴 ->회원가입 실패 
 	}
