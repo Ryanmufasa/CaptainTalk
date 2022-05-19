@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="chat.chatDAO.ChatDAO"%>
+    <%@page import="chat.chatVO.ChatVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,6 +9,27 @@
 		document.list.submit();
 	}
 </script>--%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	String ch_id = request.getParameter("ch_id");
+	String ch_title = request.getParameter("ch_title");
+	
+// 	MemberDAO dao = MemberDAO.getInstance();
+// 	vo = dao.list(vo);
+
+
+	//임시로 dao의 이름은 ChatDAO라고 설정하였습니다.
+	ChatDAO dao = ChatDAO.getInstance();
+	
+	//하나라도 있으면 그 객체를 담는 객체 list 
+	List<ChatVO> list = dao.selectAll();
+	int aa = list.size();
+	
+%>
+
+
 <%@ include file="./layout/header.jsp"%>
 <div align="center">
 	<table class="boardTable">
@@ -15,20 +39,26 @@
 			<th  width="80">호스트</th>
 		</tr>
 		<c:choose><%-- 분기문 시작 --%>
-			<c:when test="${list != null }"><%-- 만약 채팅창이 있다면 --%>
+<!-- 				만약 채팅창이 있다면 -->
+			<c:when test="${list.size() != 0 }"> 
+<!-- 			결국 채팅창이 있냐고 물어보는 거니깐 -->
+<!-- 				채팅창에 아무도 없게되면  -->
 				<c:forEach var = "vo" items="${list }"> <%-- vo에서 채팅창을 불러옴 반복문 --%>
+				<!-- 리스트에 있는 vo를 꺼내는거지 list를 꺼내는 문법은 아닌것 같음 -->
+				
+				
 					<tr>
-						<td>${vo.seq }</td>
+<%-- 						<td>${vo.ch_imsi }</td> --%>
+						<td>${vo.ch_id }</td>
 						<td>
-<%-- 							<a href="/MyHome/board/content.brd?seq=${dto.seq }"> --%>
-							<a href="./main.jsp?ch_id=${vo.seq }">
+							<a href="./main.jsp?ch_id=${vo.ch_title }">
 							${vo.ch_title }</a>
 						</td>
-						<td>${vo.id }</td>
+						<td>기타정보</td>
 						
 					</tr>
-				</c:forEach> <%-- 반복문 종료 --%>
-			</c:when><%--조건문 종료 --%>
+				</c:forEach>
+			</c:when>
 			<c:otherwise><%--${list == null }"--%>
 				<tr>
 					<td colspan="5" align="center">
@@ -40,7 +70,6 @@
 	</table>
 	<c:if test="${login != null }">
 		 <div class="btnBox">
-<!-- 		 		<input type=button value="채팅창 만들기" onclick="location.href = '/MyHome/board/writeForm.brd'"> -->
 		 		<input type=button value ="채팅창 만들기" onclick="loation.href = 'creatroom.jsp'">
 		</div>
 	</c:if>
