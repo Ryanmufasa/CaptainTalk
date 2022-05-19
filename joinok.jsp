@@ -12,9 +12,14 @@
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
 	String name = request.getParameter("name");
-	String phone1 = request.getParameter("phone1");
-	String phone2 = request.getParameter("phone2");
-	String phone3 = request.getParameter("phone3");
+	int phone1 = Integer.parseInt(request.getParameter("phone1"));
+	int phone2 = Integer.parseInt(request.getParameter("phone2"));
+	int phone3 = Integer.parseInt(request.getParameter("phone3"));
+	int sex = Integer.parseInt(request.getParameter("sex"));
+	String birthday = request.getParameter("birthday");
+	String email = request.getParameter("email");
+	String region = request.getParameter("region");
+	String memo = request.getParameter("memo");
 	
 	int rowcnt = 0;
 	
@@ -30,7 +35,7 @@
 	
 	try{
 		// 3. 중복된 아이디 체크 sql
-		String sql = "SELECT * FROM member WHERE id = ?";
+		String sql = "SELECT * FROM member WHERE mem_id = ?";
 		
 		// 4. pstmt 생성
 		System.out.println("ps 생성 시작");
@@ -48,23 +53,31 @@
 		
 		if(rowcnt == 0) { // 5. 아이디가 존재하지 않을 경우
 			System.out.println("중복된 아이디가 없습니다");
-			// 6. member 테이블에 값 넣을 sql문 작성
-			sql = "insert into member values(?, ?, ?, ?, ?, ?)";
 			
 			try {
+				// 6. member 테이블에 값 넣을 sql문 작성
+				sql = "INSERT INTO member"
+				+ "VALUES(member_seq.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				
 				ps=conn.prepareStatement(sql);
 				ps.setString(1, id);
 				ps.setString(2, pw);
 				ps.setString(3, name);
-				ps.setString(4, phone1);
-				ps.setString(5, phone2);
-				ps.setString(6, phone3);
+				ps.setInt(4, phone1);
+				ps.setInt(5, phone2);
+				ps.setInt(6, phone3);
+				ps.setInt(7, sex);
+				ps.setString(8, birthday);
+				ps.setString(9, email);
+				ps.setString(10, region);
+				ps.setString(11, memo);
 				
-				int result = ps.executeUpdate();
 				
-				if(result == 1){ //insert 성공
+				rowcnt = ps.executeUpdate();
+				System.out.println("업데이트 완료");
+				if(rowcnt == 1) { //insert 성공
 					response.sendRedirect("join_succes.jsp");
-				} else{ //insert 실패
+				} else { //insert 실패
 					response.sendRedirect("join_fail.jsp");
 				}
 				
