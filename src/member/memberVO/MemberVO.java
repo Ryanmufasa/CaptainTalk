@@ -2,78 +2,93 @@ package member.memberVO;
 
 public class MemberVO {
 	
-	private int no;
-	private String id;
-	private String password;
-	private String name;
-	private String tel1;
-	private String tel2;
-	private String tel3;
-	private String friends;
+	private int mem_no; 
+	private String mem_id;
+	private String mem_password;
+	private String mem_name;
+	private String mem_tel1;
+	private String mem_tel2;
+	private String mem_tel3;
 	
 	public MemberVO() {}
-	
-	public MemberVO(int no, String id, String password, String name, String tel1, String tel2, String tel3, String friends) {
+
+	public MemberVO(String mem_id, String mem_password, String mem_name, String mem_tel1, String mem_tel2,
+			String mem_tel3) {
 		super();
-		this.no = no;
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.tel1 = tel1;
-		this.tel2 = tel2;
-		this.tel3 = tel3;
-		this.friends = friends;
-	}
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getTel1() {
-		return tel1;
-	}
-	public void setTel1(String tel1) {
-		this.tel1 = tel1;
-	}
-	public String getTel2() {
-		return tel2;
-	}
-	public void setTel2(String tel2) {
-		this.tel2 = tel2;
-	}
-	public String getTel3() {
-		return tel3;
-	}
-	public void setTel3(String tel3) {
-		this.tel3 = tel3;
-	}
-
-	public String getFriends() {
-		return friends;
-	}
-
-	public void setFriends(String friends) {
-		this.friends = friends;
+		this.mem_id = mem_id;
+		this.mem_password = mem_password;
+		this.mem_name = mem_name;
+		this.mem_tel1 = mem_tel1;
+		this.mem_tel2 = mem_tel2;
+		this.mem_tel3 = mem_tel3;
 	}
 	
+	public MemberVO(int mem_no, String mem_id, String mem_password, String mem_name, String mem_tel1, String mem_tel2,
+			String mem_tel3) {
+		super();
+		this.mem_no = mem_no;
+		this.mem_id = mem_id;
+		this.mem_password = mem_password;
+		this.mem_name = mem_name;
+		this.mem_tel1 = mem_tel1;
+		this.mem_tel2 = mem_tel2;
+		this.mem_tel3 = mem_tel3;
+	}
 
+	public int getMem_no() {
+		return mem_no;
+	}
+
+	public void setMem_no(int mem_no) {
+		this.mem_no = mem_no;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public String getMem_password() {
+		return mem_password;
+	}
+
+	public void setMem_password(String mem_password) {
+		this.mem_password = mem_password;
+	}
+
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+
+	public String getMem_tel1() {
+		return mem_tel1;
+	}
+
+	public void setMem_tel1(String mem_tel1) {
+		this.mem_tel1 = mem_tel1;
+	}
+
+	public String getMem_tel2() {
+		return mem_tel2;
+	}
+
+	public void setMem_tel2(String mem_tel2) {
+		this.mem_tel2 = mem_tel2;
+	}
+
+	public String getMem_tel3() {
+		return mem_tel3;
+	}
+
+	public void setMem_tel3(String mem_tel3) {
+		this.mem_tel3 = mem_tel3;
+	}
+	
 }
