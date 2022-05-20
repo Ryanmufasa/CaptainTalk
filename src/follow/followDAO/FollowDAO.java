@@ -290,15 +290,15 @@ public class FollowDAO {
 				+ "where mem_no = ? and target_mem_no = ? "
 				+ "union "
 				+ "select mem_no, target_mem_no from follow "
-				+ "where target_mem_no = ? and mem_no = ? "
+				+ "where mem_no = ? and target_mem_no = ? "
 				+ "group byp mem_no, target_mem_no"; // 중복데이터 제외
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, vo.getMem_no());
 			ps.setInt(2, vo.getTarget_mem_no());
-			ps.setInt(3, vo.getTarget_mem_no());
-			ps.setInt(4, vo.getMem_no());
+			ps.setInt(3, vo.getTarget_mem_no()); // mem_no 에 target_mem_no 를 넣고 
+			ps.setInt(4, vo.getMem_no()); // targem_mem_no 에 mem_no 를 넣어 서로간 조회합니다.
 			rs = ps.executeQuery();
 			if(rs.next()) { // 둘중 하나라도 팔로우가 있으면 true
 				rs.last(); // 마지막 행으로 이동 
