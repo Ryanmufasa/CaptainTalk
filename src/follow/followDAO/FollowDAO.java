@@ -96,7 +96,8 @@ public class FollowDAO {
 		String sql = "select m.mem_id, m.mem_name, f.fol_date " 
 				+ "from member m, follow f "
 				+ "where f.target_mem_no = ? "
-				+ "and m.mem_no = f.target_mem_no";
+				+ "and m.mem_no = f.mem_no"; 
+				// 팔로우 한 회원의 회원번호 가 member 테이블의 회원번호와 같을 때 
 		
 		try {
 			con = ds.getConnection();
@@ -143,6 +144,9 @@ public class FollowDAO {
 				+ "from member m, follow f "
 				+ "where f.mem_no = ? "
 				+ "and m.mem_no = f.target_mem_no";
+		// f.mem_no : 팔로우 신청한 회원 
+		// 팔로우한 회원의 회원번호가 member 테이블의 회원번호와 같아야
+		// 현재 회원이 팔로잉중인 목록 출력 가능.
 		
 		try {
 			con = ds.getConnection();
