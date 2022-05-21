@@ -291,7 +291,7 @@ public class FollowDAO {
 				+ "union "
 				+ "select mem_no, target_mem_no from follow "
 				+ "where mem_no = ? and target_mem_no = ? "
-				+ "group byp mem_no, target_mem_no"; // 중복데이터 제외
+				+ "group by mem_no, target_mem_no"; // 중복데이터 제외
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
