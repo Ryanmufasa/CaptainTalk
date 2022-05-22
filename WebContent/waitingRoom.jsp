@@ -18,8 +18,17 @@
 	
 	List<ChatVO> list = dao.selectAll();
 	
+	int size = 0;
+	
+	if(list!=null){
+		size = list.size();
+	} else {
+		size = 1;
+	}
+	//채팅방 갯수, 갯수가 0이면 테이블 생성을 위해 1로 임의 설정헌다.
+	
 	//ChatVO의 채팅방 이름들을 입력받기 위해 room배열을 만든다
-	String room[] = new String[list.size()]; 
+	String room[] = new String[size]; 
 	
 	//script 내 startChat()에서 사용하기 위해 local로 선언
 	int i = 0;
@@ -53,10 +62,17 @@
 			<td>멤버</td>
 		</tr>
 		<%
-			for(i=0; i < list.size(); i++){
+			for(i=0; i < size; i++){
 				// ch(ChatVO)에 dao.selectAll()로 받아온 정보를 순차적으로 하나씩 입력
-				ch = list.get(i); 
+				
 				//room 배열에 채팅방이름을 순차적으로 입력
+				if(list==null){ %>
+		<tr>
+			<!-- 채팅방이 없으면 빈 테이블 한개 생성 -->
+			<td></td>	<td></td>
+		<tr>
+		<%	} else
+				ch = list.get(i);
 				room[i] = ch.getChr_name();
 		%>
 		<tr>
