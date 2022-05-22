@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -60,7 +62,7 @@ public class FollowDAO {
 				vo.setFol_id(rs.getInt("fol_id"));
 				vo.setMem_no(rs.getInt("mem_no"));
 				vo.setTarget_mem_no(rs.getInt("target_mem_no"));
-				vo.setFol_datetime(rs.getDate("fol_datetime"));
+				vo.setFol_date(rs.getDate("fol_date"));
 				list.add(vo);
 			}
 		}catch(SQLException e) {
