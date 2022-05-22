@@ -28,5 +28,5 @@
 	request.setAttribute("check", check);
 	request.setAttribute("msg", msg);
 	
-	pageContext.forward("../result.jsp");
+	pageContext.forward("joinResult.jsp");
 %>
