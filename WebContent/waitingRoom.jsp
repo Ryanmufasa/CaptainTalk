@@ -1,9 +1,16 @@
 <%@page import="java.util.List"%>
-<%@page import="chat.chatDAO.ChatDAO"%>
-<%@page import="chat.chatVO.ChatVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="chat.chatDAO.ChatDAO"%>
+<%@page import="chat.chatVO.ChatVO"%>
+<%@page import="member.memberVO.MemberVO"%>
+<%@page session="true"%>
+<% request.setCharacterEncoding("UTF-8");
+
+	MemberVO voo = (MemberVO)session.getAttribute("login");
+	String name = voo.getMem_id();
+%>
 <%-- <script type="text/javascript">
 	function check(){
 		document.list.submit();
@@ -16,7 +23,7 @@
 // 	String ch_title = request.getParameter("ch_title");
 	// 원래 썼는데 삭제해도 될것같은 부분
 	// 위 문법을 쓰기에는 전 페이지에서 받아온 값이 없음
-	// 굳이 받아올 값이 필요하진 않을것 같음. check.jsp 따라하다 보니깐....
+	// 굳이 받아올 값이 않을것 같음. check.jsp 따라하다 보니깐....
 
 	//임시로 dao의 이름은 ChatDAO라고 설정.
 	ChatDAO dao = ChatDAO.getInstance();
@@ -85,6 +92,13 @@
 		function roomname() {
 				window.open("./makeRoom/roomName.jsp","popupWin1",
 					"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
+		}
+		
+
+		function startChat() {
+			
+			<% dao.join_room(room,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
+			location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
 		}
 	</script>
 	
