@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="chat.chatDAO.ChatDAO"%>
+<%@page import="chat.chatVO.ChatVO"%>
+<%@page import="member.memberVO.MemberVO"%>
+<%@page session="true"%>
+<% request.setCharacterEncoding("UTF-8");
+
+	MemberVO voo = (MemberVO)session.getAttribute("login");
+	String name = voo.getMem_id();
+	String room = request.getParameter("room");
+	
+	ChatVO vo = new ChatVO();
+	
+	vo.setChr_name(room);
+	vo.setChr_mem(name);
+	
+	ChatDAO dao = ChatDAO.getInstance();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +57,8 @@ pageEncoding="UTF-8"%>
 		}
 		function goChat() {
 			opener.open('about:blank','_self').close();
-			location.href="main.jsp"; //채팅창으로 이동
+			<% dao.join_room(room,name); %> //현재 사용자를 생성한 채팅방 db에 입력시킨다
+			location.href="main.jsp"; //채팅창으로 이동// url 따로 만드는 법 강구
 		}
 		function makeRoom() {
 			location.href="makeRoom.jsp";
