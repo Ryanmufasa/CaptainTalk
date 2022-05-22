@@ -61,13 +61,13 @@ public class MemberDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				vo = new MemberVO();
-				vo.setMem_no(rs.getInt("no"));
-				vo.setMem_id(rs.getString("id"));
-				vo.setMem_password(rs.getString("password"));
-				vo.setMem_name(rs.getString("name"));
-				vo.setMem_tel1(rs.getString("tel1"));
-				vo.setMem_tel2(rs.getString("tel2"));
-				vo.setMem_tel3(rs.getString("tel3"));
+				vo.setMem_no(rs.getInt("mem_no"));
+				vo.setMem_id(rs.getString("mem_id"));
+				vo.setMem_password(rs.getString("mem_password"));
+				vo.setMem_name(rs.getString("mem_name"));
+				vo.setMem_tel1(rs.getString("mem_tel1"));
+				vo.setMem_tel2(rs.getString("mem_tel2"));
+				vo.setMem_tel3(rs.getString("mem_tel3"));
 
 				list.add(vo);
 			}
@@ -194,7 +194,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql = "update member set tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
+		String sql = "update member set mem_tel1 = ?, mem_tel2 = ?, mem_tel3 = ? where mem_no = ?";
 		
 		try {
 			con = ds.getConnection();
@@ -226,7 +226,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql="delete member where no=?";
+		String sql="delete member where mem_no=?";
 		
 		try {
 			con = ds.getConnection();
