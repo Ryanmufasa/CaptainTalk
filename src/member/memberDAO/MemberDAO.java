@@ -194,7 +194,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql = "update member set tel1 = ?,tel2 = ?,tel3 = ? where no = ?";
+		String sql = "update member set mem_tel1 = ?, mem_tel2 = ?, mem_tel3 = ? where mem_no = ?";
 		
 		try {
 			con = ds.getConnection();
@@ -226,7 +226,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql="delete member where no=?";
+		String sql="delete member where mem_no=?";
 		
 		try {
 			con = ds.getConnection();

@@ -3,7 +3,7 @@
 		</div>
 		<div class="footer">
 		
-			CaptainTalk
+			CaptainTalk's copyright.
 			
 		</div>
 
