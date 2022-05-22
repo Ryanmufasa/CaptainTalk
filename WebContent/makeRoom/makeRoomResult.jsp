@@ -11,11 +11,6 @@ pageEncoding="UTF-8"%>
 	String name = voo.getMem_id();
 	String room = request.getParameter("room");
 	
-	ChatVO vo = new ChatVO();
-	
-	vo.setChr_name(room);
-	vo.setChr_mem(name);
-	
 	ChatDAO dao = ChatDAO.getInstance();
 %>
 <!DOCTYPE html>
@@ -38,7 +33,7 @@ pageEncoding="UTF-8"%>
 	</script> -->
 	
 		<script type="text/javascript">
-		function goWait() {
+		function goWait() {//대기실로 이동 (waitRoom.jsp)
 			//window.opener.location.reload(); //부모 창(waitingRoom.jsp)새로고침 한 후
 			//opener.location.reload(); // 부모 창 새로고침하는 다른 방법
 			// 하지만 부모창은 make.Room이기 때문에...? 현재 창을 닫고 waitingRoom.jsp를 
@@ -55,12 +50,14 @@ pageEncoding="UTF-8"%>
 			//부모창을 닫고 현재창을 여는 이유는 새로 업데이트 된 내용을 바로 볼 수 있게 하기 위해서이고
 			//부모창을 4초마다 업데이트 하는 이유는 다른 사용자가 채팅방을 개설하면 확인할 수 있게 하기 위해서다
 		}
-		function goChat() {
+		
+		function goChat() {//생성한 채팅방으로 이동
 			opener.open('about:blank','_self').close();
 			<% dao.join_room(room,name); %> //현재 사용자를 생성한 채팅방 db에 입력시킨다
 			location.href="main.jsp"; //채팅창으로 이동// url 따로 만드는 법 강구
 		}
-		function makeRoom() {
+		
+		function makeRoom() {//채팅방 다시 만들기 (makeRoom.jsp 으로 이동)
 			location.href="makeRoom.jsp";
 		}
 	</script>
