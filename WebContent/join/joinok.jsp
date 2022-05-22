@@ -28,5 +28,5 @@
 	request.setAttribute("check", check);
 	request.setAttribute("msg", msg);
 	
-	pageContext.forward("/CaptainTalk/result.jsp");
+	pageContext.forward("../result.jsp");
 %>
