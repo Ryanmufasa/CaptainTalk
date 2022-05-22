@@ -42,19 +42,23 @@ pageEncoding="UTF-8"%>
 			opener.open('about:blank','_self').close();
 			location.href="main.jsp"; //채팅창으로 이동
 		}
+		function makeRoom() {
+			location.href="makeRoom.jsp";
+		}
 	</script>
 
 	<div align="center">
 		${msg }<br>
 		<c:if test="${check }">
 			<form>
-				<button onClick="goWait()">대기실로 이동</button>
+				<button onClick="goWait()">대기실로 이동</button> &nbsp;&nbsp;
 				<button onClick="goChat()">생성한 채팅방으로 이동</button>
 			</form>
 		</c:if>
 		<c:if test="${!check }">
 			<form>
-				<button onClick="goWait()">대기실로 이동</button>
+				<button onClick="goWait()">대기실로 이동</button> &nbsp;&nbsp;
+				<button onClick="makeRoom()">채팅방 다시 만들기</button>
 			</form>	
 		</c:if>
 	</div>
