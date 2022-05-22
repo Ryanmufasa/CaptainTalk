@@ -25,13 +25,13 @@
 <body>
 	<div id="aa">
 		<h2>회원가입</h2>
-			<form action="joinok.jsp" method="post">
+			<form action="./joinok.jsp" method="post">
 				아이디:<input type="text" name="id"><br> 
 				비밀번호:<input type="password" name="pw"><br> 
 				이름:<input type="text" name="name"><br> 
-				전화번호:<input type="text" name="phone1" size="5"> 
-				<input type="text" name="phone2" size="5"> 
-				<input type="text" name="phone3" size="5"><br>
+				전화번호:<input type="text" name="tel1" size="5"> 
+				<input type="text" name="tel2" size="5"> 
+				<input type="text" name="tel3" size="5"><br>
 				<input type="submit" value="회원가입">
 			</form>
 	</div>

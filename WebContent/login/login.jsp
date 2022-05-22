@@ -20,15 +20,15 @@
 	<center>
 	<h1> Main page </h1>
 	<div id="mq1">
-		<img src="./picture/mainImg.jpg" width=200>
+		<img src="../picture/mainImg.jpg" width=200>
 	</div><br>
 	</center>
-	<form action="check.jsp" method="get">
+	<form action="/CaptainTalk/login/check.jsp" method="get">
 	아이디 <input type="text" name="name" readonly> <br>
 	비밀번호 <input type="password" name="pw" size=18 maxlength=16>
 	<input type="submit" value="로그인">
 	</form>
-	<form action="./join/join.jsp" method="get">
+	<form action="/CaptainTalk/join/join.jsp" method="get">
 	<input type="reset" value="회원가입">
 	</form>
 </body>

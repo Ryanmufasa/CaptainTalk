@@ -10,5 +10,7 @@
 	테스트라인입니다~!
 	테스트라인 2번입니다~!
 	테스트라인 3번입니다~!
+	<a href = "./join/join.jsp">회원가입</a><br>
+	<a href="./login/login.jsp">로그인 </a>
 </body>
 </html>
