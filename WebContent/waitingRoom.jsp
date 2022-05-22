@@ -10,134 +10,70 @@
 
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
-%>
-<%-- <script type="text/javascript">
-	function check(){
-		document.list.submit();
-	}
-</script>--%>
-<%
+
 	request.setCharacterEncoding("UTF-8");
-
-// 	String ch_id = request.getParameter("ch_id");
-// 	String ch_title = request.getParameter("ch_title");
-	// 원래 썼는데 삭제해도 될것같은 부분
-	// 위 문법을 쓰기에는 전 페이지에서 받아온 값이 없음
-	// 굳이 받아올 값이 않을것 같음. check.jsp 따라하다 보니깐....
-
-	//임시로 dao의 이름은 ChatDAO라고 설정.
+	
+	ChatVO ch = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
-	// 객체 list는 모든 채팅테이블에대한 정보를 받는 list
-	// dao에선 'select * form CHAT'로 해서
-	// 모든 정보를 list로 담아놨음
 	List<ChatVO> list = dao.selectAll();
 	
+	//ChatVO의 채팅방 이름들을 입력받기 위해 room배열을 만든다
+	String room[] = new String[list.size()]; 
+	
+	//script 내 startChat()에서 사용하기 위해 local로 선언
+	int i = 0;
+	
 %>
-
+<!DOCTYPE html>
+<html>
+<head>
 <!-- 4초마다 페이지 초기화 // 새로운 채팅방이 생겼나 4초마다 확일할 수 있게-->
-<META HTTP-EQUIV="refresh" CONTENT="4">
-
-<%-- <%@ include file="./layout/header.jsp"%> --%>
-<div align="center">
-	<table class="boardTable">
-		<tr>
-			<th  width="80">번호</th>
-			<th  width="300">채팅창 제목</th>
-			<th  width="80">호스트</th>
-		</tr>
-		<c:choose><%-- 분기문 시작 --%>
-<!-- 				만약 리스트에 정보가 있다면 있다면 -->
-			<c:when test="${list.size() != 0 }">
-				<c:forEach var = "list" items="${list }"> <%-- vo에서 채팅창을 불러옴 반복문 --%>
-				<!--  여기가 문제를 해결해야할 point -->
-				<!--  원래태그는 var = "vo" items="${list}" -->
-				<!-- 호형님 피셜-->
-				<!-- 리스트에 있는 vo를 꺼내는거지 list를 꺼내는 문법은 아닌것 같음 -->
-				<!-- 이러면 리스트에 잇는게 그냥 죄다 출력될것 -->
-				<!-- var = list로 바꾼다고 해도, items가 왜필요한거지...
-					 게시판 예제에서는 분명 리스트가 필요해서 뽑은걸텐데....
-				 -->
-				 <!-- 일단 아래에서 list에 대한 정보가 필요하니깐
-				 	  ${list}로 하는데 쫌만 더 생각해보자
-				  -->
-				
-				
-					<tr>
-<%-- 						<td>${vo.ch_imsi }</td> --%>
-						<td>${list.ch_id }</td>
-						<!-- 위에 선언된 list에서 ch_id를 불러옴 -->
-						<td>
-							<a href="./main.jsp?ch_id=${list.ch_id }">
-							
-							${list.ch_title }</a>
-						</td>
-						<td>호스트이름</td>
-						
-					</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise><%--${list == null }"--%>
-				<tr>
-					<td colspan="5" align="center">
-						<span style="font-weight: bold;">열려있는 채팅창이 없습니다.</span>
-					</td>
-				</tr>
-			</c:otherwise><%-- default. 따로 설정안했음 --%>
-		</c:choose><%--분기문 종료 --%>
-	</table>
-<%-- 	<c:if test="${login != null }"> --%>
-
+<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="4">
+<title>Insert title here</title>
+</head>
+<body align="center">
 	<script>
-		function roomname() {
-				window.open("./makeRoom/roomName.jsp","popupWin1",
-					"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
+	function roomname() {
+		window.open("./makeRoom/roomName.jsp","popupWin1",
+				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
 		}
-		
-
-		function startChat() {
-			
-			<% dao.join_room(room,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
-			location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
-		}
+	
+	function startChat() {		
+		<% dao.join_room(room[i],name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
+		<% request.setAttribute("room",room); %>
+		location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
+	}
 	</script>
 	
-		 <div class="btnBox">
-		 		<input type=button value ="채팅창 만들기" onclick="roomname()">
-		 		<!-- onclick="loation.href = 'creatroom.jsp'"> -->
-		</div>
+	<h2 align="center">채팅방 목록</h2>
+	<table border="1" width="400" align="center">
+		<tr>
+			<td>채팅방</td>
+			<td>멤버</td>
+		</tr>
+		<%
+			for(i=0; i < list.size(); i++){
+				// ch(ChatVO)에 dao.selectAll()로 받아온 정보를 순차적으로 하나씩 입력
+				ch = list.get(i); 
+				//room 배열에 채팅방이름을 순차적으로 입력
+				room[i] = ch.getChr_name();
+		%>
+		<tr>
+			<!-- 채팅방 이름을 클릭하면 startChat()실행 -->
+			<td><button onClick="startChat()"><%=room[i] %></button></td>
+			<td><%=ch.getChr_mem() %></td>
+		<tr>
+		<% } %>
 		
-		<!-- 직접 페이지 새로고침 -->
-		<form>
-			<input type="button" value="페이지 새로 고침" onClick="window.location.href=window.location.href">
-		</form>
+	<script>
+	</script>
 		
-		
-		
-		
-		
-		
-<%-- 	</c:if> --%>
+	</table>
 	
-	
-	<%-- 번호에 따라 페이지가 넘아가는 기법은 지금 페이지에서 굳이 사용할 필요는 없을듯 하다.. --%>
-	
-<%-- 	<c:if test="${nowPage > 2 }"> --%>
-<%-- 		<a href="/MyHome/board/list.brd?start=${start - 10 }">[이전]</a> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${nowPage > 1 }"> --%>
-<%-- 		<a href="/MyHome/board/list.brd?start=${start - 5 }">[${nowPage - 1 }]</a> --%>
-<%-- 	</c:if> --%>
-<%-- 	[${nowPage }] --%>
-<%-- 	<c:if test="${nowPage < totalPage }"> --%>
-<%-- 		<a href="/MyHome/board/list.brd?start=${start + 5 }">[${nowPage + 1 }]</a> --%>
-<%-- 	</c:if> --%>
-<%-- 	<c:if test="${nowPage + 1 < totalPage }"> --%>
-<%-- 		<a href="/MyHome/board/list.brd?start=${start + 10 }">[다음]</a> --%>
-<%-- 	</c:if> 이 페이지 나누는걸 for문으로 돌려서 할 수 있다… --%>
-</div>
-<%--
-로그인 계정으로 들어가면  글쓰기  버튼이 있어서 글도 입력, 파일도 업로드 하게 만들기..
- —--%>
-
-<%-- <%@ include file="/layout/footer.jsp"%> --%>
+	<button onClick="roomname()">채팅창 만들기</button> &nbsp;&nbsp;
+	<!-- 페이지 직접 새로고침 -->
+	<button onClick="window.location.href=window.location.href">페이지 새로고침</button>
+		
+</body>
+</html>
