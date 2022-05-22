@@ -46,8 +46,6 @@
 		check = true;
 	
 	}else{
-		session.invalidate();
-		System.out.println("세션초기화 완료");
 		msg = "잘못된 형식의 데이터를 입력하였습니다.";
 	}
 	
@@ -55,6 +53,6 @@
 	request.setAttribute("msg", msg);
 	
 	
-	pageContext.forward("joinDbAddResult.jsp");
+	pageContext.forward("meminfoDbAddResult.jsp");
 
 %>

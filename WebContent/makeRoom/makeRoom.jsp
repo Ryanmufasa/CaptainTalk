@@ -32,6 +32,7 @@
 		msg = "중복된 채팅방 이름입니다.";
 	}
 	
+	request.setAttribute("room", room);
 	request.setAttribute("check", result);
 	request.setAttribute("msg", msg);
 	

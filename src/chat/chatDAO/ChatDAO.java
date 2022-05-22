@@ -92,7 +92,7 @@ public class ChatDAO {
 		String sql = "INESRT INTO CHAT VALUES(?, ?)";
 			try {
 				ps.setString(1, room);
-				name ="|"+name+"|";
+				name = "|"+name+"l";
 				ps.setString(2, name);
 				ps.executeUpdate();
 			} catch(SQLException e) {
