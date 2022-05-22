@@ -24,7 +24,7 @@
 	</div><br>
 	</center>
 	<form action="/CaptainTalk/login/check.jsp" method="get">
-	아이디 <input type="text" name="name" readonly> <br>
+	아이디 <input type="text" name="id"> <br>
 	비밀번호 <input type="password" name="pw" size=18 maxlength=16>
 	<input type="submit" value="로그인">
 	</form>
