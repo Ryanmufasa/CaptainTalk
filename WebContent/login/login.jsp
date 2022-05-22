@@ -1,35 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Main Page</title>
-<style>
-	* {margin:0; padding:0;}
-	
-	@media all and (min-width:300px) {
-		
-		#mq1 img { width:100%;	}
-	}
-	
-	div {font-size: 0;}
-</style>
-</head>
-<body>
-	<center>
-	<h1> Main page </h1>
-	<div id="mq1">
-		<img src="../picture/mainImg.jpg" width=200>
-	</div><br>
-	</center>
-	<form action="/CaptainTalk/login/check.jsp" method="get">
-	아이디 <input type="text" name="id"> <br>
-	비밀번호 <input type="password" name="pw" size=18 maxlength=16>
-	<input type="submit" value="로그인">
+<%@ include file="/layout/header.jsp" %>   
+<script>
+
+$(function(){
+	$('.btnlogin').click(function(){
+		if($("[name=id]").value == ""){
+			alert("아이디를 입력하세요")
+			$(this).focus();
+		}else if($('[name=pw]').value == ""){
+			alert("비밀번호를 입력하세요")
+			$(this).focus();
+		}else{
+			$('form').submit();
+		}
+	})
+})
+</script>
+
+
+	<form action="/CaptainTalk/login/check.jsp" method="post" name="login">
+		<table>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td><input type="password" name="pw"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" value="로그인" class="btnlogin">
+				</td>
+			</tr>
+		</table>
 	</form>
-	<form action="/CaptainTalk/join/join.jsp" method="get">
-	<input type="reset" value="회원가입">
-	</form>
-</body>
-</html>
+	
+<%@ include file="/layout/footer.jsp"%>
