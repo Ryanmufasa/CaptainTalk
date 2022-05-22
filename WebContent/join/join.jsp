@@ -14,7 +14,7 @@
 	
 	#aa {
 		background-size: cover;
-		background-image: url("./picture/join.jpg");
+		background-image: url("../picture/join.jpg");
 		background-position: center;
 		min-height: 100%;
 		border: 0;
