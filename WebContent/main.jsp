@@ -27,7 +27,7 @@
 			<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
 			dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
 			//window.open("about:blank", "_self").close(); //현재 창 닫기
-			window.open('about:blank','_self').self.close(); //href로 열은 현재 창 닫기
+			location.href='index.jsp' //href로 열은 현재 창 닫기
 		}
 	</script>
 	
@@ -142,7 +142,7 @@
 				//알림객체 생성시 알림 출력할 제목, 아이콘 ,실제 문장등을 인자로 넣는다
 				var noti1 = new Notification("즐거운 chat하세요", {
 					icon: "./picture/happy.jpg",//picture 파일에 그림을 넣어 사용한다
-					body: "클릭하면 즐거운 홈페이지가 열립니다"
+					body: "클릭하면 채팅에 유용한 검색 페이지가 나옵니다"
 				});
 			
 				noti1.onclick = function() { // 알림 메시지를 클릭하면 아래 사이트가 열린다
