@@ -28,7 +28,7 @@
 	<hr>
 	
 <!-- 	<form id = "gogo" action="logincheck.jsp" method="post"> -->
-	<form>
+	<form action="./login.jsp">
 		<table id="join">
 			<tr>
 				<td><label>아아디</label></td>
