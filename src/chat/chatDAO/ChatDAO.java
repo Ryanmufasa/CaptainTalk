@@ -95,16 +95,18 @@ public class ChatDAO {
 		String sql = "";
 			try {
 				con = ds.getConnection();
-				sql = "INSESRT INTO chat VALUES(?,?)";
+				sql = "INSERT INTO chat VALUES(?,?)";
 				ps = con.prepareStatement(sql);
+				System.out.println("make 할 room 이름:"+vo.getChr_name());
 				ps.setString(1, vo.getChr_name());
 				mem = "|"+vo.getChr_mem()+"|";
+				System.out.println("make_insert 할 사용자:"+mem);
 				ps.setString(2, mem);
 					System.out.println("make_room 시작");
-				if(ps.executeUpdate() != 0) {
-					System.out.println("채팅방 생성 성공");
-					check = true;  
-				}
+				rs = ps.executeQuery();
+				System.out.println("채팅방 생성 성공");
+				check = true;  
+				
 			} catch(SQLException e) {
 				System.out.println(e.getMessage());
 		    	System.out.println("채팅방 생성 Exception");
