@@ -20,10 +20,9 @@
 	ChatDAO dao = ChatDAO.getInstance();
 	
 	
-	boolean result = false;
+	boolean result = dao.make_room(vo);
 	String msg = null;
 	
-	result = dao.make_room(room, name);
 	
 	if(result==true) {
 		msg = vo.getChr_name() + "채팅방을 개설하였습니다.";
