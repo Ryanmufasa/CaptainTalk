@@ -55,7 +55,7 @@
 	}
 	</script>
 	
-	<h2 align="center">채팅방 목록</h2>
+	<h2>채팅방 목록</h2>
 	<table border="1" width="400" align="center">
 		<tr>
 			<td>채팅방</td>
@@ -69,9 +69,9 @@
 				if(list==null){ %>
 		<tr>
 			<!-- 채팅방이 없으면 빈 테이블 한개 생성 -->
-			<td></td>	<td></td>
+			<td>채팅방이 없습니다</td>	<td> 0 </td>
 		<tr>
-		<%	} else
+		<%	} else {
 				ch = list.get(i);
 				room[i] = ch.getChr_name();
 		%>
@@ -80,16 +80,19 @@
 			<td><button onClick="startChat()"><%=room[i] %></button></td>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
-		<% } %>
-		
+		<% 		} //if-end 
+			} //for-end %>
 	<script>
 	</script>
 		
 	</table>
-	
-	<button onClick="roomname()">채팅창 만들기</button> &nbsp;&nbsp;
-	<!-- 페이지 직접 새로고침 -->
-	<button onClick="window.location.href=window.location.href">페이지 새로고침</button>
+	<table border=0  width="400" align="center">
+		<tr>
+		<td width="300"><button onClick="roomname()">채팅방 생성</button></td>
+		<!-- 페이지 직접 새로고침 -->
+		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
+		</tr>
+	</table>
 		
 </body>
 </html>
