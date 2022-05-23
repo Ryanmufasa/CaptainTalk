@@ -30,7 +30,8 @@
 	if(vo!=null){
 		msg = vo.getMem_name() + "님이 로그인 하셨습니다.";
 		check = true;
-	
+		session.setAttribute("login",vo);
+	 
 	}else{
 		msg = "아이디 혹은 비밀번호가 잘못되었습니다.";
 	}
@@ -38,6 +39,6 @@
 	request.setAttribute("check", check);
 	request.setAttribute("msg", msg);
 	
-	pageContext.forward("result.jsp");
+	pageContext.forward("../result.jsp");
 
 %>

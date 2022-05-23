@@ -9,7 +9,8 @@
 <body>
 
 	<h2>회원가입에 실패했습니다!</h2>
-	<a href="./join.jsp">다시 가입</a>
+	<a href="./login.jsp">로그인 페이지</a><br>
+	<a href="./join.jsp">재가입</a>
 
 </body>
 </html>
