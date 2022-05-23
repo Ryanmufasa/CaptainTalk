@@ -21,6 +21,9 @@
 	//버튼 table 첫 td 길이. list가 null일 때 300
 	//null이 아닐 때 200
 	int button_width = 0;
+	// 채팅방 이름을 입력받을 변수 선언
+	String roomName = "";
+	
 	
 	if(list==null){
 		button_width = 300;
@@ -60,8 +63,8 @@
 				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
 		} */
 	
-	function startChat() {		
-		<% dao.join_room(room[i],name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
+	function startChat() {	
+		<% dao.join_room(roomName,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
 		<% request.setAttribute("room",room); %>
 		location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
 	}
@@ -89,7 +92,7 @@
 		%>
 		<tr>
 			<!-- 채팅방 이름을 클릭하면 startChat()실행 -->
-			<td><button onClick="startChat()"><%=room[i] %></button></td>
+			<td><button onClick="startChat()"><%roomName = room[i];%><%=room[i] %></button></td>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
 		<% 		} //if-end 

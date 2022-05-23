@@ -74,7 +74,7 @@ pageEncoding="UTF-8"%>
 		<c:if test="${!check }">
 			<form>
 				<button onClick="location.href='waitingRoom.jsp';">대기실로 이동</button> &nbsp;&nbsp;
-				<button onClick="location.href='makeRoom.jsp';">채팅방 다시 만들기</button>
+				<!-- <button onClick="location.href='makeRoom.jsp';">채팅방 다시 만들기</button> -->
 			</form>	
 		</c:if>
 	</div>
