@@ -63,14 +63,16 @@
 				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
 		} */
 	
-	function startChat() {	
+	<%-- function startChat() {	
 		<% dao.join_room(roomName,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
-		<% request.setAttribute("room",room); %>
-		location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
-	}
+		<% request.setAttribute("room",roomName); %>
+		location.href="main.jsp?room=<%=roomName%>";
+		//location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
+	} --%>
 	</script>
 	
 	<h2>채팅방 목록</h2>
+	<form method="get">
 	<table border="1" width="400" align="center">
 		<tr>
 			<td>채팅방</td>
@@ -89,15 +91,18 @@
 		<%	} else {
 				ch = list.get(i);
 				room[i] = ch.getChr_name();
+				roomName = room[i];
 		%>
 		<tr>
-			<!-- 채팅방 이름을 클릭하면 startChat()실행 -->
-			<td><button onClick="startChat()"><%roomName = room[i];%><%=room[i] %></button></td>
+			<!-- 채팅방 이름을 클릭하면 main.jsp?room=roomName.jsp로 이동 -->
+			<td><a href="main.jsp?room=<%=roomName%>"><%=roomName %></a>
+			<%-- <td><button onClick="startChat()"><%roomName = room[i];%><%=room[i] %></button></td> --%>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
 		<% 		} //if-end 
 			} //for-end %>
 	</table>
+	</form>
 	
 	<table border=0  width="400" align="center">
 		<tr>

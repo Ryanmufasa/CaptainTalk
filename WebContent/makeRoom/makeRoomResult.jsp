@@ -53,11 +53,6 @@ pageEncoding="UTF-8"%>
 			//부모창을 4초마다 업데이트 하는 이유는 다른 사용자가 채팅방을 개설하면 확인할 수 있게 하기 위해서다
 		} */
 		
-		function goChat() {//생성한 채팅방으로 이동
-			<% dao.join_room(room,name); %> //현재 사용자를 생성한 채팅방 db에 입력시킨다
-			location.href="main.jsp"; //채팅창으로 이동// url 따로 만드는 법 강구
-		}
-		
 		/* function makeRoom() {//채팅방 다시 만들기 (makeRoom.jsp 으로 이동)
 			location.href="makeRoom.jsp";
 		} */
@@ -66,14 +61,15 @@ pageEncoding="UTF-8"%>
 	<div align="center">
 		${msg }<br>
 		<c:if test="${check }">
-			<form>
-				<button onClick="location.href='waitingRoom.jsp';">대기실로 이동</button> &nbsp;&nbsp;
-				<button onClick="goChat()">생성한 채팅방으로 이동</button>
+			<form method="get">
+				<a href="../waitingRoom.jsp">대기실로 이동</a> &nbsp;&nbsp;
+				<a href="../main.jsp?room=<%=room%>">생성한 채팅방으로 이동</a>
 			</form>
 		</c:if>
 		<c:if test="${!check }">
 			<form>
-				<button onClick="location.href='waitingRoom.jsp';">대기실로 이동</button> &nbsp;&nbsp;
+				<a href="../waitingRoom.jsp">대기실로 이동</a>
+				<!-- <button onClick="location.href='waitingRoom.jsp';">대기실로 이동</button> &nbsp;&nbsp; -->
 				<!-- <button onClick="location.href='makeRoom.jsp';">채팅방 다시 만들기</button> -->
 			</form>	
 		</c:if>

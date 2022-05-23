@@ -12,6 +12,8 @@
 	String room = request.getParameter("room");
 	
 	ChatDAO dao = ChatDAO.getInstance();
+	
+	dao.join_room(room,name);
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +28,7 @@
 		function logOut(){
 			<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
 			dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
-			location.href='index.jsp' // index.jsp로 이동
+			location.href='index.jsp'; // index.jsp로 이동
 		}
 	</script>
 	
@@ -42,6 +44,7 @@
 	
 	<input type="submit" value="보내기" onclick="kajaChool();">
 	<button onClick="logOut()">로그아웃</button>
+	<h4>귓속말 사용법 = <mark>\w[상대방 사용자명]:메시지</mark></h4>
 	
 	<script>
 	function enterkey(){
