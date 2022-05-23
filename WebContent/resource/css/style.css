@@ -1,12 +1,23 @@
 @charset "UTF-8";
 
-.header, .footer {
-	border : 2px black solid;
+.header {
+	background-color : #deb887;
 	width : 600px;
-	height : 50px;
+	height : 30px;
 	font-weight : bold;
+	font-size : 15pt;
 	text-align : center;
 	padding-top : 15px;
+}
+
+.footer{
+	
+	background-color: #deb887;
+	width : 600px;
+	height : 30px;
+	font-weight: bold;
+	font-size:10pt;
+	text-align : center;
 	
 }
 
@@ -16,5 +27,22 @@
 	min-height : 500px;
 	padding-top : 15px;
 	
+}
+
+a{
+	text-decoration:none;
+}
+
+
+a:link{
+	color:black;	
+}
+
+a:visited{
+	color:green;
+}
+
+a:hover{
+	color:purple;
 }
 
