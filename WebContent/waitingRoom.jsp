@@ -98,7 +98,7 @@
 	
 	<table border=0  width="400" align="center">
 		<tr>
-		<td width="<%=button_width %>"><button onClick="location.href='roomName.jsp';">채팅방 생성</button></td>
+		<td width="<%=button_width %>"><button onClick="location.href='./roomName.jsp';">채팅방 생성</button></td>
 		<!-- 페이지 직접 새로고침 -->
 		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
 		</tr>
