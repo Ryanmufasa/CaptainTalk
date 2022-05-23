@@ -99,7 +99,7 @@ public class ChatDAO {
 				
 				ps.setString(1, vo.getChr_name());
 					System.out.println("name:"+vo.getChr_name());
-				mem = "|"+vo.getChr_mem()+"l";
+				mem = "|"+vo.getChr_mem()+"|";
 					System.out.println("||을 더한 name : "+mem);
 				ps.setString(2, mem);
 					System.out.println("make_room 시작");
