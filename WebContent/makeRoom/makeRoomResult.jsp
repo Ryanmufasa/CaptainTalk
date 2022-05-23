@@ -11,6 +11,11 @@ pageEncoding="UTF-8"%>
 	String name = voo.getMem_id();
 	String room = request.getParameter("room");
 	
+	ChatVO vo = new ChatVO();
+	
+	vo.setChr_name(room);
+	vo.setChr_mem(name);
+	
 	ChatDAO dao = ChatDAO.getInstance();
 %>
 <!DOCTYPE html>

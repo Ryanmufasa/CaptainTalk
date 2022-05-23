@@ -11,9 +11,16 @@
 	String name = voo.getMem_id();
 	String room = request.getParameter("room");
 	
+	ChatVO vo = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
-	dao.join_room(room,name);
+	String roomMem = dao.get_mem(room);
+	
+	vo.setChr_name(room);
+	vo.setChr_mem(roomMem);
+	
+	dao.join_room(vo, room, name);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -24,13 +31,6 @@
 <body>
 <!--index.html 도 하나 더 생성  .. 하나는 서버, 하나는 클라이언트라고 생각하면 됨. -->
 	
-	<script>
-		function logOut(){
-			<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
-			dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
-			location.href='index.jsp'; // index.jsp로 이동
-		}
-	</script>
 	
 	<h3> 채팅 </h3>
 	<textarea rows="10" cols="50" readonly id="ta1"></textarea> <br>
@@ -39,14 +39,21 @@
 	<input type="text" id="who1" value="홍길동">
 	
 	<h3>보낼 글 </h3>
-	<input type="text" id="chat1" onkeyup="enterkey()">
+	<input type="text" id="chat1" onkeyup="enterkey();">
 	<!-- onkeyup : down이 누르는거고 on 은 눌렀다 뗐을 때  -->
 	
-	<input type="submit" value="보내기" onclick="kajaChool();">
-	<button onClick="logOut()">로그아웃</button>
+	<input type="submit" value="보내기" onClick="kajaChool();">
+	<input type="submit" value="로그아웃" onClick="logOut();">
+	<!-- <button onClick="logOut();">로그아웃</button> -->
 	<h4>귓속말 사용법 = <mark>\w[상대방 사용자명]:메시지</mark></h4>
 	
 	<script>
+	function logOut(){
+		<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
+		dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
+		location.href='index.jsp'; // index.jsp로 이동
+	}
+	
 	function enterkey(){
 		if(window.event.keyCode == 13){ // ascii code 에서 엔터키 13 
 			kajaChool();
