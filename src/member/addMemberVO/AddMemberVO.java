@@ -1,17 +1,26 @@
 package member.addMemberVO;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class AddMemberVO {
 	
+	private int infonum;
 	private int mem_no; 
 	private int mem_sex;
-	private String mem_birthday;
+	private Date mem_birthday;
 	private String mem_email;
 	private String mem_region;
 	private String mem_memo;
 	
 	
+	public int getInfonum() {
+		return infonum;
+	}
+
+	public void setInfonum(int infonum) {
+		this.infonum = infonum;
+	}
+
 	public int getMem_no() {
 		return mem_no;
 	}
@@ -28,11 +37,11 @@ public class AddMemberVO {
 		this.mem_sex = mem_sex;
 	}
 
-	public String getMem_birthday() {
+	public Date getMem_birthday() {
 		return mem_birthday;
 	}
 
-	public void setMem_birthday(String mem_birthday) {
+	public void setMem_birthday(Date mem_birthday) {
 		this.mem_birthday = mem_birthday;
 	}
 
@@ -61,10 +70,11 @@ public class AddMemberVO {
 	}
 
 	public AddMemberVO() { }
-	
-	public AddMemberVO(int mem_no, int mem_sex, String mem_birthday, 
-			String mem_email, String mem_region, String mem_memo) {
+
+	public AddMemberVO(int infonum, int mem_no, int mem_sex, Date mem_birthday, String mem_email, String mem_region,
+			String mem_memo) {
 		super();
+		this.infonum = infonum;
 		this.mem_no = mem_no;
 		this.mem_sex = mem_sex;
 		this.mem_birthday = mem_birthday;
@@ -73,6 +83,6 @@ public class AddMemberVO {
 		this.mem_memo = mem_memo;
 	}
 	
-	
-	
+
+
 }
