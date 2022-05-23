@@ -20,12 +20,14 @@
 			<td >${login.mem_tel1 }-${login.mem_tel2 }-${login.mem_tel3 }</td>
 		</tr>
 		<tr><td colspan="2" align="center">
-				<input type="button" value = "기본정보 관리">
+				<input type="button" value = "기본정보 관리" onclick="location.href ='/CaptainTalk/member/memUpdate.jsp'">
 				<!-- <input type="button" value="비밀번호 변경하기"> -->
 			</td>
 		</tr>
 	</table>
-	
+	<c:if test="${!empty msg2 }">
+		<h2>msg2</h2>
+	</c:if>
 	<br>
 	<h3>내 추가 정보</h3>
 	<table border='1'> 
