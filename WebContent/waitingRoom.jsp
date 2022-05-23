@@ -38,12 +38,12 @@
 <html>
 <head>
 <!-- 4초마다 페이지 초기화 // 새로운 채팅방이 생겼나 4초마다 확일할 수 있게-->
-<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="4">
+<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="8">
 <title>Insert title here</title>
 </head>
 <body align="center">
 	<script>
-	function roomname() {
+	function roomName() {
 		window.open("./makeRoom/roomName.jsp","popupWin1",
 				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
 		}
@@ -82,13 +82,11 @@
 		<tr>
 		<% 		} //if-end 
 			} //for-end %>
-	<script>
-	</script>
-		
 	</table>
+	
 	<table border=0  width="400" align="center">
 		<tr>
-		<td width="300"><button onClick="roomname()">채팅방 생성</button></td>
+		<td width="300"><button onClick="roomName()">채팅방 생성</button></td>
 		<!-- 페이지 직접 새로고침 -->
 		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
 		</tr>

@@ -59,8 +59,8 @@ public class ChatDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				vo = new ChatVO();
-				vo.setChr_name(rs.getString("chr_name"));
-				vo.setChr_mem(rs.getString("ch_mem"));
+				vo.setChr_name(rs.getString("CHR_NAME"));
+				vo.setChr_mem(rs.getString("CHR_MEM"));
 
 				list.add(vo);
 			}
@@ -92,27 +92,33 @@ public class ChatDAO {
 		boolean check = false; 
 		String mem = "";
 		//채팅방 이름과 사용자 이름을 입력받아 채팅방을 만든다
-		String sql = "INSESRT INTO CHAT VALUES(?, ?)";
+		String sql = "INSESRT INTO chat VALUES(?,?)";
 			try {
 				con = ds.getConnection();
 				ps = con.prepareStatement(sql);
 				
-				System.out.println("setString 1,room 시작");
 				ps.setString(1, vo.getChr_name());
-				System.out.println("name:"+vo.getChr_name());
-				System.out.println("이름에 ||더하기 시작");
+					System.out.println("name:"+vo.getChr_name());
 				mem = "|"+vo.getChr_mem()+"l";
-				System.out.println("||을 더한 name : "+mem);
+					System.out.println("||을 더한 name : "+mem);
 				ps.setString(2, mem);
-				System.out.println("make_room 시작");
-				ps.executeUpdate();
-				System.out.println("make_room 성공");
-				check = true;
+					System.out.println("make_room 시작");
+				if(ps.executeUpdate() != 0) {
+					System.out.println("채팅방 생성 성공");
+					check = true;  
+				}
 			} catch(SQLException e) {
-				System.out.println("make_room 실패");
-		    	System.out.println("Insert Exception");
+				System.out.println(e.getMessage());
+		    	System.out.println("채팅방 생성 Exception");
 		    	check = false;
-		    }
+		    } finally {
+				try {
+					if(ps != null) ps.close();
+					if(con != null) con.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		return check;
 	}
 	
@@ -127,13 +133,13 @@ public class ChatDAO {
 				con = ds.getConnection();
 				ps = con.prepareStatement(sql);
 				
-				sql = "SELECT chr_mem FROM CHAT WHERE chr_name=?";
+				sql = "SELECT chr_mem FROM CHAT WHERE CHR_NAME=?";
 				ps.setString(1, room);
 				ps.executeUpdate();
 				rs = ps.executeQuery();
 				while(rs.next()){
-					String chr_mem=rs.getString("chr_mem");
-					chr_add_mem = chr_mem+"|"+chr_mem+"|";
+					String chr_mem=rs.getString("CHR_MEM");
+					chr_add_mem = name+"|"+chr_mem+"|";
 				}
 			} catch(SQLException e) {
 			   	System.out.println("join_room__add_mem Exception");
@@ -145,7 +151,7 @@ public class ChatDAO {
 				con = ds.getConnection();
 				ps = con.prepareStatement(sql);
 				
-				sql = "UPDATE CHAT SET chr_mem=? WHERE chr_name=?";
+				sql = "UPDATE CHAT SET CHR_MEM=? WHERE CHR_NAME=?";
 				ps.setString(1, chr_add_mem);
 				ps.setString(2, room);
 				rs = ps.executeQuery();
@@ -168,7 +174,7 @@ public class ChatDAO {
 				con = ds.getConnection();
 				ps = con.prepareStatement(sql);
 				
-				sql = "UPDATE CHAT SET chr_mem=(REPLACE('|'+?+'|','') WHERE chr_name=?";
+				sql = "UPDATE CHAT SET chr_mem=(REPLACE('|'+?+'|','') WHERE CHR_NAME=?";
 				//채팅방에서 나간 사용자 채팅방에서 목록에서 삭제
 				ps.setString(1, name);
 				ps.setString(2, room);
@@ -176,7 +182,14 @@ public class ChatDAO {
 				check = true;
 			} catch(SQLException e) {
 			   	System.out.println("join_room Exception");
-			   	return false;
+			    check = false;
+			} finally {
+				try {
+					if(ps != null) ps.close();
+					if(con != null) con.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		return check;
 	}
@@ -186,7 +199,7 @@ public class ChatDAO {
 		boolean check = false;
 		
 		//프로그램 종료시 or 로그아웃 시마다 채팅방에 사용자가 없으면 채팅방 삭제
-		String sql = "DELETE FROM CHAT WHERE chr_mem is null";
+		String sql = "DELETE FROM CHAT WHERE CHR_MEM is null";
     	try {
     		con = ds.getConnection();
 			ps = con.prepareStatement(sql);
@@ -195,7 +208,14 @@ public class ChatDAO {
     	}catch(SQLException e) {
     		System.out.println("Delect Exception");
     		check = false;
-    	}
+    	} finally {
+			try {
+				if(ps != null) ps.close();
+				if(con != null) con.close();
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
     	return check;
 	}
 
