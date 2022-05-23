@@ -47,7 +47,7 @@ a:hover{
 
 #aa {
 		background-size: cover;
-		background-image: url("./picture/indexBg.jpg");
+		background-image: url("/CaptainTalk/picture/indexBg.jpg");
 		background-position: center;
 		min-height: 100%;
 		border: 0;
