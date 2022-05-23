@@ -43,16 +43,16 @@
 	<!-- onkeyup : down이 누르는거고 on 은 눌렀다 뗐을 때  -->
 	
 	<input type="submit" value="보내기" onClick="kajaChool();">
-	<input type="submit" value="로그아웃" onClick="logOut();">
+	<input type="submit" value="로그아웃" onClick="location.href='makeRoom/logOut.jsp';">
 	<!-- <button onClick="logOut();">로그아웃</button> -->
 	<h4>귓속말 사용법 = <mark>\w[상대방 사용자명]:메시지</mark></h4>
 	
 	<script>
-	function logOut(){
+	<%-- function logOut(){
 		<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
 		dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
 		location.href='index.jsp'; // index.jsp로 이동
-	}
+	} --%>
 	
 	function enterkey(){
 		if(window.event.keyCode == 13){ // ascii code 에서 엔터키 13 

@@ -239,5 +239,32 @@ public class ChatDAO {
 				}
 			} return roomMem;
 		}
+	
+	public String get_name(String mem) {
+		
+		String sql = null;
+		String roomName = null;
+    	try {
+    		con = ds.getConnection();
+    		sql = "SELECT CHR_NAME FROM CHAT WHERE CHR_MEM LIKE '%?%'";
+			ps = con.prepareStatement(sql);
+			System.out.println("get_name함수 mem : " + mem);
+			ps.setString(1, mem);
+			rs = ps.executeQuery();
+    		while(rs.next()) {
+				roomName = rs.getString("CHR_NAME");
+				}		
+	    	}catch(SQLException e) {
+	    		System.out.println("get_name 에러");
+	    		e.printStackTrace();
+	    	} finally {
+				try {
+					if(ps != null) ps.close();
+					if(con != null) con.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} return roomName;
+		}
 
 }
