@@ -246,13 +246,15 @@ public class ChatDAO {
 		String roomName = null;
     	try {
     		con = ds.getConnection();
-    		sql = "SELECT CHR_NAME FROM CHAT WHERE CHR_MEM LIKE '%?%'";
+    		sql = "SELECT CHR_NAME FROM CHAT WHERE CHR_MEM LIKE ?";
 			ps = con.prepareStatement(sql);
+			mem = "%"+mem+"%";
 			System.out.println("get_name함수 mem : " + mem);
 			ps.setString(1, mem);
 			rs = ps.executeQuery();
     		while(rs.next()) {
 				roomName = rs.getString("CHR_NAME");
+				System.out.println("get_name함수 return roomName : " + roomName);
 				}		
 	    	}catch(SQLException e) {
 	    		System.out.println("get_name 에러");
