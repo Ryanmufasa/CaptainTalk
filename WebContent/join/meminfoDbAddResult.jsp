@@ -13,13 +13,14 @@ pageEncoding="UTF-8"%>
 		${msg }<br>
 		<c:if test="${check }">
 			대기실로 이동<br>
-			<a href="waitingRoom.jsp">이동!</a>
+			<a href="../waitingRoom.jsp">대기실</a>
 		</c:if>
 		<c:if test="${!check }">
-			로그인 페이지로....<br>
-			<a href="login.jsp">Login</a>
+			로그인 페이지로 이동<br>
+			<a href="../login.jsp">Login</a>
 		</c:if>
 	</div>
-
+	
+	
 </body>
 </html>

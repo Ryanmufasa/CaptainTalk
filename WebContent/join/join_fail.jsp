@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	테스트라인입니다~!
-	테스트라인 2번입니다~!
-	테스트라인 3번입니다~!<br>
-	<a href = "./join/join.jsp">회원가입</a><br>
-	<a href="login.jsp">로그인 </a>
+
+	<h2>회원가입에 실패했습니다!</h2>
+	<a href="./login.jsp">로그인 페이지</a><br>
+	<a href="./join.jsp">재가입</a>
+
 </body>
 </html>
