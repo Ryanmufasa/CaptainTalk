@@ -18,6 +18,17 @@
 	
 	List<ChatVO> list = dao.selectAll();
 	
+	//버튼 table 첫 td 길이. list가 null일 때 300
+	//null이 아닐 때 200
+	int button_width = 0;
+	
+	if(list==null){
+		button_width = 300;
+	} else {
+		button_width = 200;
+	}
+	
+	
 	int size = 0;
 	
 	if(list!=null){
@@ -86,7 +97,7 @@
 	
 	<table border=0  width="400" align="center">
 		<tr>
-		<td width="300"><button onClick="roomName()">채팅방 생성</button></td>
+		<td width="<%=button_width %>"><button onClick="roomName()">채팅방 생성</button></td>
 		<!-- 페이지 직접 새로고침 -->
 		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
 		</tr>

@@ -203,7 +203,6 @@ public class ChatDAO {
     	try {
     		con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-    		
     		ps.executeUpdate();
     	}catch(SQLException e) {
     		System.out.println("Delect Exception");

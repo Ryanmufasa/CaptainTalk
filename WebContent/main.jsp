@@ -22,6 +22,15 @@
 <body>
 <!--index.html 도 하나 더 생성  .. 하나는 서버, 하나는 클라이언트라고 생각하면 됨. -->
 	
+	<script>
+		function logOut(){
+			<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
+			dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
+			//window.open("about:blank", "_self").close(); //현재 창 닫기
+			window.open('about:blank','_self').self.close(); //href로 열은 현재 창 닫기
+		}
+	</script>
+	
 	<h3> 채팅 </h3>
 	<textarea rows="10" cols="50" readonly id="ta1"></textarea> <br>
 	
@@ -54,12 +63,6 @@
 		chat1.value = "";
 		chat1.focus();
 		
-	}
-	
-	function logOut(){
-		dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
-		dao.delete_room(); //채팅방에 사용자 0명일 시 채팅방 제거
-		window.open("about:blank", "_self").close(); //현재 창 닫기
 	}
 	</script>
 	<!-- [한기태]방가방가 -->
