@@ -48,16 +48,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 4초마다 페이지 초기화 // 새로운 채팅방이 생겼나 4초마다 확일할 수 있게-->
-<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="8">
+<!-- 10초마다 페이지 초기화 // 새로운 채팅방이 생기거나 혹은 새 맴버가 채팅방에 입장했는지 확일할 수 있게-->
+<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="10">
 <title>Insert title here</title>
 </head>
 <body align="center">
 	<script>
-	function roomName() {
-		window.open("./makeRoom/roomName.jsp","popupWin1",
+	/* function roomName() {
+		location.href="roomName.jsp";
+		//window.open("./makeRoom/roomName.jsp","popupWin1",
 				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
-		}
+		} */
 	
 	function startChat() {		
 		<% dao.join_room(room[i],name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
@@ -97,7 +98,7 @@
 	
 	<table border=0  width="400" align="center">
 		<tr>
-		<td width="<%=button_width %>"><button onClick="roomName()">채팅방 생성</button></td>
+		<td width="<%=button_width %>"><button onClick="location.href='roomName.jsp';">채팅방 생성</button></td>
 		<!-- 페이지 직접 새로고침 -->
 		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
 		</tr>
