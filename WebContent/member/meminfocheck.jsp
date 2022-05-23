@@ -30,11 +30,4 @@
 	
 	pageContext.forward("meminfo.jsp");
 	
-	
-	
-	
-	
-	
-
-
 %>

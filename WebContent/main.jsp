@@ -1,29 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>채팅채팅 </title>
-<style>
-	html, body {
-		height:100%; /* %가 중요하다 */
-		margin: 0;
-		padding: 0;
-	}
-	
-	#aa {
-		background-size: cover;
-		background-image: url("./picture/indexBg.jpg");
-		background-position: center;
-		min-height: 100%;
-		border: 0;
-		padding: 0;
-	}
-</style>
-</head>
-<body>
-<!--index.html 도 하나 더 생성  .. 하나는 서버, 하나는 클라이언트라고 생각하면 됨. -->
+<%@ include file="/layout/header.jsp"  %>
+
 	<div id="aa">
 		<h3> 채팅 </h3>
 		<textarea rows="10" cols="50" readonly id="ta1"></textarea> <br>
@@ -146,5 +124,4 @@
 			}
 		}
 	</script>
-</body>
-</html>
+<%@ include file="/layout/footer.jsp" %>

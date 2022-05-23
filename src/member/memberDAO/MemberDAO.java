@@ -194,15 +194,18 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql = "update member set mem_tel1 = ?, mem_tel2 = ?, mem_tel3 = ? where mem_no = ?";
+		String sql = "update member set mem_password=?, mem_name=?,  mem_tel1 = ?, mem_tel2 = ?, mem_tel3 = ? "
+				+ "where mem_no = ?";
 		
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, vo.getMem_tel1());
-			ps.setString(2, vo.getMem_tel2());
-			ps.setString(3, vo.getMem_tel3());
-			ps.setInt(4, vo.getMem_no());
+			ps.setString(1, vo.getMem_password());
+			ps.setString(2, vo.getMem_name());
+			ps.setString(3, vo.getMem_tel1());
+			ps.setString(4, vo.getMem_tel2());
+			ps.setString(5, vo.getMem_tel3());
+			ps.setInt(6, vo.getMem_no());
 			if(ps.executeUpdate() != 0) {
 				check = true;
 			}

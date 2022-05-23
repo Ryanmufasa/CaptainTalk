@@ -3,7 +3,8 @@
 		</div>
 		<div class="footer">
 		
-			CaptainTalk's copyright.
+			CaptainTalk's copyright.<br>
+			감사합니다.
 			
 		</div>
 

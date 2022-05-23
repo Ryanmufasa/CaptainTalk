@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/style.css">
 <script src="${pageContext.request.contextPath }/resource/js/jquery-3.6.0.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/style.css">
 
 <title>CaptainTalk</title>
 </head>

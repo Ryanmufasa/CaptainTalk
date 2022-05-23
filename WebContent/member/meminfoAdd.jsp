@@ -10,7 +10,11 @@
 			<table border="1" style="margin:auto; text-align:center" width="390" height="360">
 				<tr height="60">
 					<td>성별</td>
-					<td><input type="text" name="sex" style="width:260px; height:22px; font-size:15px;"></td>
+					<td>
+					<input type="radio" name="sex" value="1"/>남성
+					<input type="radio" name="sex" value="2"/>여성
+					<input type="radio" name="sex" value="0"/>비공개
+					</td>
 				</tr>
 				<tr height="60">
 					<td>생일</td>
