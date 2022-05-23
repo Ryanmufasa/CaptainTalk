@@ -26,8 +26,7 @@
 		function logOut(){
 			<%dao.out_room(room,name); //채팅방 맴버에서 현재 사용자 제거
 			dao.delete_room();%> //채팅방에 사용자 0명일 시 채팅방 제거
-			//window.open("about:blank", "_self").close(); //현재 창 닫기
-			location.href='index.jsp' //href로 열은 현재 창 닫기
+			location.href='index.jsp' // index.jsp로 이동
 		}
 	</script>
 	
