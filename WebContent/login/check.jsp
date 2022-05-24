@@ -39,6 +39,6 @@
 	request.setAttribute("check", check);
 	request.setAttribute("msg", msg);
 	
-	pageContext.forward("../result.jsp");
+	pageContext.forward("loginResult.jsp");
 
 %>
