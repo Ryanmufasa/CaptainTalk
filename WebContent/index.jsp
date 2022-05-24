@@ -4,6 +4,10 @@
 <%@ include file="/layout/header.jsp"  %>
 
 
+<div id="index">
+	<h2>CaptainTalk</h2>
+	<h3>환영합니다!</h3>
+<img src="/CaptainTalk/picture/indexBg.jpg" width="600px;"> 
 
-
+</div>
 <%@ include file="/layout/footer.jsp" %>
