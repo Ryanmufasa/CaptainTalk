@@ -5,9 +5,11 @@
     <%@page import="member.memberVO.MemberVO"%>
 	<%@page session="true"%>
 <%
+
 	request.setCharacterEncoding("UTF-8");
+
 	MemberVO voo = (MemberVO)session.getAttribute("login");
-	String name = "|"+voo.getMem_id()+"|";
+	String name = voo.getMem_id();
 	String room = request.getParameter("room");
 	
 	ChatVO vo = new ChatVO();
