@@ -6,10 +6,10 @@
 <%
 	request.setCharacterEncoding("UTF-8");	
 
-	MemberVO vo = (MemberVO)session.getAttribute("login");
+	MemberVO vo1 = (MemberVO)session.getAttribute("login");
 	
-	int no = vo.getMem_no();
-	AddMemberVO vo1 = new AddMemberVO();
+	int no = vo1.getMem_no();
+	AddMemberVO vo = new AddMemberVO();
 	
 	String msg = null;
 	
@@ -20,12 +20,12 @@
 		// 세션 저장 된게 없으면
 		// memberinfo 테이블에 DB있는지 조회
 		System.out.println("DB 입력된 추가정보 있음. ");
-		vo1.setMem_no(no);
-		vo1 = AddMemberDAO.getInstance().selectInfo(vo1);
+		vo.setMem_no(no);
+		vo = AddMemberDAO.getInstance().selectInfo(vo);
 		
-		if(vo1.getInfonum() != 0){
+		if(vo.getInfonum() != 0){
 			// 입력한적이 있으면 세션에 객체 저장
-			session.setAttribute("info",vo1);
+			session.setAttribute("info",vo);
 			System.out.println("memberinfo 객체 세션 저장 ");
 		}	
 	}

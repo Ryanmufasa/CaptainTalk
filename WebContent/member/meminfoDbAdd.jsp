@@ -52,18 +52,20 @@
 		// update 사용해야 함. 
 		check = dao.updateInfo(vo);
 		System.out.println("추가정보 수정실행");	
+		session.removeAttribute("info"); //기존에 세션에 저장되어 있던  info의 속성 제거 
+		
 	} else {
 		check = dao.addInfo(vo); 
 		System.out.println("추가정보 입력실행 ");
 	}	
 	
 	if(check){ // insert 또는 update  true 반환시 
-		vo.setMem_no(no);
+ 		vo.setMem_no(no);
 		vo.setMem_sex(sex);
 		vo.setMem_birthday(date);
 		vo.setMem_email(email);
 		vo.setMem_region(region);
-		vo.setMem_memo(memo);
+		vo.setMem_memo(memo); 
 		session.setAttribute("info",vo);
 		msg = voo.getMem_id() + "님의 회원 정보를 수정하였습니다.";
 	}else{
