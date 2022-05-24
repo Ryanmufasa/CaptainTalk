@@ -14,17 +14,17 @@
 		<div class="header">
 			<c:choose>
 				<c:when test="${login  != null}"> 
-					<a href = "/CaptainTalk/member/myPage.jsp">My Page</a> 
-					<a href = "/CaptainTalk/login/logout.jsp">Logout</a>
-					<a href = "/CaptainTalk/makeRoom/makeRoom.jsp">Make Chat Room</a>
+					<a href = "/CaptainTalk/member/myPage.jsp"> My Page </a> 
+					<a href = "/CaptainTalk/login/logout.jsp"> Logout </a>
+					<a href = "/CaptainTalk/chatRoom/roomList.jsp"> Chat Room </a>
 				</c:when>
 				<c:otherwise>
-					<a href ="/CaptainTalk/login/login.jsp">login</a>
-					<a href ="/CaptainTalk/join/join.jsp">join</a>
+					<a href ="/CaptainTalk/login/login.jsp"> login </a>
+					<a href ="/CaptainTalk/join/join.jsp"> join </a>
 				</c:otherwise>
 			</c:choose>
 			
-			<a href="/CaptainTalk/">Home</a>
+			<a href="/CaptainTalk/"> Home </a>
 		
 		
 		</div>

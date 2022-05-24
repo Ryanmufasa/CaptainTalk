@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 		</div>
 		<div class="footer">
-		
-			CaptainTalk's copyright.<br>
-			감사합니다.
+
+			CaptainTalk을 이용해 주시는 고객님 감사합니다
+			
 			
 		</div>
 
