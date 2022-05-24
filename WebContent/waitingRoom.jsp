@@ -10,28 +10,27 @@
 
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
-
-	request.setCharacterEncoding("UTF-8");
 	
 	ChatVO ch = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
 	List<ChatVO> list = dao.selectAll();
 	
-	//버튼 table 첫 td 길이. list가 null일 때 300
-	//null이 아닐 때 200
+	
+	//버튼 열 길이 변수 생성
 	int button_width = 0;
+	
 	// 채팅방 이름을 입력받을 변수 선언
 	String roomName = "";
+		 
+	//list 객체가 null일 때 width=300
+	//list객체가 null이 아닐 때 width=200
+	if(list==null) { 
+		button_width = 300; } 
+	else { 
+		button_width = 200; }
 	
-	
-	if(list==null){
-		button_width = 300;
-	} else {
-		button_width = 200;
-	}
-	
-	
+	//행 갯수 변수
 	int size = 0;
 	
 	if(list!=null){
@@ -56,20 +55,6 @@
 <title>Insert title here</title>
 </head>
 <body align="center">
-	<script>
-	/* function roomName() {
-		location.href="roomName.jsp";
-		//window.open("./makeRoom/roomName.jsp","popupWin1",
-				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
-		} */
-	
-	<%-- function startChat() {	
-		<% dao.join_room(roomName,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
-		<% request.setAttribute("room",roomName); %>
-		location.href="main.jsp?room=<%=roomName%>";
-		//location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
-	} --%>
-	</script>
 	
 	<h2>채팅방 목록</h2>
 	<form method="get">
@@ -94,9 +79,8 @@
 				roomName = room[i];
 		%>
 		<tr>
-			<!-- 채팅방 이름을 클릭하면 main.jsp?room=roomName.jsp로 이동 -->
-			<td><a href="main.jsp?room=<%=roomName%>"><%=roomName %></a>
-			<%-- <td><button onClick="startChat()"><%roomName = room[i];%><%=room[i] %></button></td> --%>
+			<!-- 채팅방 이름을 클릭하면 main.jsp로 이동 -->
+			<td><a href="main.jsp"><%=roomName %></a>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
 		<% 		} //if-end 

@@ -18,7 +18,7 @@
 	div {font-size: 0;}
 </style>
 </head>
-<body>
+<body align="center">
 
 	<header>
 		<div id="header1">
