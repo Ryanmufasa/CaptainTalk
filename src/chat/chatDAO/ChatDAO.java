@@ -135,6 +135,15 @@ public class ChatDAO {
 			
 			//채팅방에 사용자를 넣는다
 			try {
+				// 중복된 사용자가 채팅방에 있는지 체크
+				// 사실 새로운 방을 생성하고 채팅방에 입장할 때 사용자가 두번 입력됨을 방지하기
+				// 위해 만들었습니다
+				String checkDupli = get_mem(room);
+				if(checkDupli.indexOf(name)>=0) {
+					System.out.println("사용자가 이미 채팅방에 있습니다");
+					return false;
+				}
+				
 				con = ds.getConnection();
 				sql = "UPDATE CHAT SET CHR_MEM=? WHERE CHR_NAME=?";
 				ps = con.prepareStatement(sql);
@@ -144,9 +153,7 @@ public class ChatDAO {
 				
 				ps.setString(1, add_mem);
 				ps.setString(2, room);
-				System.out.println("joinroom update 시작");
 				rs = ps.executeQuery();
-				System.out.println("joinroom update 성공");
 				check = true;
 			} catch(SQLException e) {
 			   	System.out.println("join_room Exception");
