@@ -16,7 +16,7 @@
 				<c:when test="${login  != null}"> 
 					<a href = "/CaptainTalk/member/myPage.jsp"> My Page </a> 
 					<a href = "/CaptainTalk/login/logout.jsp"> Logout </a>
-					<a href = "/CaptainTalk/chatRoom/roomList.jsp"> Chat Room </a>
+					<a href = "/CaptainTalk/waitingRoom.jsp"> Chat Room </a>
 				</c:when>
 				<c:otherwise>
 					<a href ="/CaptainTalk/login/login.jsp"> login </a>
