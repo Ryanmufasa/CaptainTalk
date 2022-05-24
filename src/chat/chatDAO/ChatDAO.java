@@ -87,6 +87,7 @@ public class ChatDAO {
 		return list;
 	}
 
+	//새로운 채팅방 생성
 	public boolean make_room(ChatVO vo) {
 		
 		boolean check = false;
@@ -122,6 +123,9 @@ public class ChatDAO {
 		return check;
 	}
 	
+	
+	
+	//기존 채팅방에 참여
 	public boolean join_room(ChatVO vo, String room, String name) {//room-채팅방이름, name-접속할 사용자이름
 		
 		boolean check = false;
@@ -152,6 +156,8 @@ public class ChatDAO {
 	}
 	
 	
+	
+	//채팅방 맴버에서 사용자 이름 제거
 	public boolean out_room(String room, String name) { 
 		
 		boolean check = false;	
@@ -185,6 +191,9 @@ public class ChatDAO {
 		return check;
 	}
 	
+	
+	
+	//사용자가 없는 채팅방 제거
 	public boolean delete_room() { 
 		
 		boolean check = false;
@@ -240,6 +249,9 @@ public class ChatDAO {
 			} return roomMem;
 		}
 	
+	
+	
+	//현재 맴버가 들어있는 채팅방을 리턴하는 함수 (logOut.jsp에서 사용됨)
 	public String get_name(String mem) {
 		
 		String sql = null;
