@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 		${msg }<br>
 		<c:if test="${check }">
 			메인 페이지로...<br>
-			<a href="waitingRoom.jsp">채팅하러 ㄱㄱ </a>
+			<a href="/CaptainTalk/waitingRoom.jsp">채팅하러 ㄱㄱ </a>
 		</c:if>
 		<c:if test="${!check }">
 			로그인 페이지로....<br>
