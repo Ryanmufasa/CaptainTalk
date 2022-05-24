@@ -9,12 +9,16 @@
 
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
+	System.out.println("voo로부터 전달받은 name:"+name);
+	
 	String room = request.getParameter("room");
+	System.out.println("waiting으로 부터 전달받은 room:"+room);
 	
 	ChatVO vo = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
 	String roomMem = dao.get_mem(room);
+	System.out.println("room으로부터 얻어낸 mem : "+roomMem);
 	
 	vo.setChr_name(room);
 	vo.setChr_mem(roomMem);
@@ -41,7 +45,7 @@
 	<!-- onkeyup : down이 누르는거고 on 은 눌렀다 뗐을 때  -->
 	
 	<input type="submit" value="보내기" onClick="kajaChool();">
-	<input type="submit" value="로그아웃" onClick="location.href='makeRoom/logOut.jsp';">
+	<input type="submit" value="채팅방 나가기" onClick="location.href='makeRoom/logOut.jsp';">
 	<h4>귓속말 사용법 = <mark>\w[상대방 사용자명]:메시지</mark></h4>
 	
 	

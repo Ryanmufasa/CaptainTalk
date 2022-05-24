@@ -79,8 +79,8 @@
 				roomName = room[i];
 		%>
 		<tr>
-			<!-- 채팅방 이름을 클릭하면 main.jsp로 이동 -->
-			<td><a href="main.jsp"><%=roomName %></a>
+			<!-- 채팅방 이름을 클릭하면 main.jsp(채팅방)로 roomName을 room에 담아 넘겨주면서 페이지 이동 -->
+			<td><a href="main.jsp?room=<%=roomName%>"><%=roomName %></a>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
 		<% 		} //if-end 
