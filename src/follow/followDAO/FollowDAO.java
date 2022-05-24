@@ -62,7 +62,7 @@ public class FollowDAO {
 				vo.setFol_id(rs.getInt("fol_id"));
 				vo.setMem_no(rs.getInt("mem_no"));
 				vo.setTarget_mem_no(rs.getInt("target_mem_no"));
-				vo.setFol_date(rs.getDate("fol_date"));
+				vo.setFol_date(rs.getDate("fol_datetime"));
 				list.add(vo);
 			}
 		}catch(SQLException e) {
@@ -293,7 +293,7 @@ public class FollowDAO {
 				+ "union "
 				+ "select mem_no, target_mem_no from follow "
 				+ "where mem_no = ? and target_mem_no = ? "
-				+ "group by mem_no, target_mem_no"; // 중복데이터 제외
+				+ "group byp mem_no, target_mem_no"; // 중복데이터 제외
 		try {
 			con = ds.getConnection();
 			ps = con.prepareStatement(sql);

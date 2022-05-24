@@ -102,7 +102,8 @@ public class MemberDAO {
 		// String tel1, String tel2, String tel3
 		boolean check = false; 
 		
-		String sql = "insert into member values(member_seq.nextval,?,?,?,?,?,?)";
+		String sql = "insert into member "
+				+ "values(?,?,?,?,?,?,?)";
 		
 		try {
 			con = ds.getConnection();
@@ -113,8 +114,9 @@ public class MemberDAO {
 			ps.setString(4, vo.getMem_tel1());
 			ps.setString(5, vo.getMem_tel2());
 			ps.setString(6, vo.getMem_tel3());
+			ps.setString(7, "");
 			if(ps.executeUpdate() != 0) {
-				check=true;
+				check = true;  
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -195,7 +197,7 @@ public class MemberDAO {
 		boolean check = false;
 		
 		String sql = "update member set mem_password=?, mem_name=?,  mem_tel1 = ?, mem_tel2 = ?, mem_tel3 = ? "
-				+ "where mem_no = ?";
+			+ "where mem_no = ?";
 		
 		try {
 			con = ds.getConnection();
@@ -229,7 +231,7 @@ public class MemberDAO {
 		
 		boolean check = false;
 		
-		String sql="delete member where mem_no=?";
+		String sql="delete member where no=?";
 		
 		try {
 			con = ds.getConnection();

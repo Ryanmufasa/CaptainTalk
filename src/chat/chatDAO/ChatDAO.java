@@ -89,24 +89,24 @@ public class ChatDAO {
 
 	public boolean make_room(ChatVO vo) {
 		
-		boolean check = false; 
+		boolean check = false;
 		String mem = "";
 		//채팅방 이름과 사용자 이름을 입력받아 채팅방을 만든다
-		String sql = "INSESRT INTO chat VALUES(?,?)";
+		String sql = "";
 			try {
 				con = ds.getConnection();
+				sql = "INSERT INTO chat VALUES(?,?)";
 				ps = con.prepareStatement(sql);
-				
+				System.out.println("make 할 room 이름:"+vo.getChr_name());
 				ps.setString(1, vo.getChr_name());
-					System.out.println("name:"+vo.getChr_name());
 				mem = "|"+vo.getChr_mem()+"|";
-					System.out.println("||을 더한 name : "+mem);
-				ps.setString(2, vo.getChr_mem());
+				System.out.println("make_insert 할 사용자:"+mem);
+				ps.setString(2, mem);
 					System.out.println("make_room 시작");
-				if(ps.executeUpdate() != 0) {
-					System.out.println("채팅방 생성 성공");
-					check = true;  
-				}
+				rs = ps.executeQuery();
+				System.out.println("채팅방 생성 성공");
+				check = true;  
+				
 			} catch(SQLException e) {
 				System.out.println(e.getMessage());
 		    	System.out.println("채팅방 생성 Exception");
@@ -122,43 +122,31 @@ public class ChatDAO {
 		return check;
 	}
 	
-	public boolean join_room(String room, String name) {//room-채팅방이름, name-접속할 사용자이름
+	public boolean join_room(ChatVO vo, String room, String name) {//room-채팅방이름, name-접속할 사용자이름
 		
 		boolean check = false;
 		
 		String sql = null;
-		String chr_add_mem = null;
-			//기존 채팅방에 있는 사용자 이름에 현재 사용자를 더해준다. |사용자명||사용자명2||사용자명3|...
-			try {
-				con = ds.getConnection();
-				ps = con.prepareStatement(sql);
-				
-				sql = "SELECT chr_mem FROM CHAT WHERE CHR_NAME=?";
-				ps.setString(1, room);
-				ps.executeUpdate();
-				rs = ps.executeQuery();
-				while(rs.next()){
-					String chr_mem=rs.getString("CHR_MEM");
-					chr_add_mem = name+"|"+chr_mem+"|";
-				}
-			} catch(SQLException e) {
-			   	System.out.println("join_room__add_mem Exception");
-			   	check = false;
-			}
+		String add_mem = null;
 			
 			//채팅방에 사용자를 넣는다
 			try {
 				con = ds.getConnection();
+				sql = "UPDATE CHAT SET CHR_MEM=? WHERE CHR_NAME=?";
 				ps = con.prepareStatement(sql);
 				
-				sql = "UPDATE CHAT SET CHR_MEM=? WHERE CHR_NAME=?";
-				ps.setString(1, chr_add_mem);
+				String chr_mem=vo.getChr_mem();
+				add_mem = chr_mem+"|"+name+"|";
+				
+				ps.setString(1, add_mem);
 				ps.setString(2, room);
+				System.out.println("joinroom update 시작");
 				rs = ps.executeQuery();
+				System.out.println("joinroom update 성공");
 				check = true;
 			} catch(SQLException e) {
 			   	System.out.println("join_room Exception");
-			   	check = true;
+			   	check = false;
 			}
 		return check;		
 	}
@@ -166,22 +154,25 @@ public class ChatDAO {
 	
 	public boolean out_room(String room, String name) { 
 		
-		boolean check = false;
-		
+		boolean check = false;	
 		//사용자가 로그아웃하면 채팅방에서 이름 삭제
 		String sql = null;
 			try {
 				con = ds.getConnection();
+				sql = "UPDATE CHAT SET chr_mem=REPLACE(chr_mem,?,'') WHERE CHR_NAME=?";
 				ps = con.prepareStatement(sql);
 				
-				sql = "UPDATE CHAT SET chr_mem=(REPLACE('|'+?+'|','') WHERE CHR_NAME=?";
 				//채팅방에서 나간 사용자 채팅방에서 목록에서 삭제
-				ps.setString(1, name);
+				System.out.println("out_room 에 들어온 name:"+name);
+				ps.setString(1, '|'+name+'|');
 				ps.setString(2, room);
+				System.out.println("out_room 시작");
 				rs = ps.executeQuery();
+				System.out.println("out_room 완료");
 				check = true;
 			} catch(SQLException e) {
-			   	System.out.println("join_room Exception");
+				e.printStackTrace();
+			   	System.out.println("out_room Exception");
 			    check = false;
 			} finally {
 				try {
@@ -194,16 +185,18 @@ public class ChatDAO {
 		return check;
 	}
 	
-	public boolean delete_room () { 
+	public boolean delete_room() { 
 		
 		boolean check = false;
-		
+		String sql = null;
 		//프로그램 종료시 or 로그아웃 시마다 채팅방에 사용자가 없으면 채팅방 삭제
-		String sql = "DELETE FROM CHAT WHERE CHR_MEM is null";
     	try {
     		con = ds.getConnection();
+    		sql = "DELETE FROM CHAT WHERE CHR_MEM is null";
 			ps = con.prepareStatement(sql);
+			System.out.println("delete_room 시작");
     		ps.executeUpdate();
+    		System.out.println("delete_room 종료");
     	}catch(SQLException e) {
     		System.out.println("Delect Exception");
     		check = false;
@@ -217,5 +210,63 @@ public class ChatDAO {
 		}
     	return check;
 	}
+	
+	
+	//현재 채팅방의 맴버들을 리턴하는 함수
+	public String get_mem(String room) {
+		
+		String sql = null;
+		String roomMem = null;
+		
+    	try {
+    		con = ds.getConnection();
+    		sql = "SELECT CHR_MEM FROM CHAT WHERE CHR_NAME=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, room);
+			rs = ps.executeQuery();
+    		while(rs.next()) {
+				roomMem = rs.getString("CHR_MEM");
+				}		
+	    	}catch(SQLException e) {
+	    		System.out.println("get_mem 에러");
+	    		e.printStackTrace();
+	    	} finally {
+				try {
+					if(ps != null) ps.close();
+					if(con != null) con.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} return roomMem;
+		}
+	
+	public String get_name(String mem) {
+		
+		String sql = null;
+		String roomName = null;
+    	try {
+    		con = ds.getConnection();
+    		sql = "SELECT CHR_NAME FROM CHAT WHERE CHR_MEM LIKE ?";
+			ps = con.prepareStatement(sql);
+			mem = "%"+mem+"%";
+			System.out.println("get_name함수 mem : " + mem);
+			ps.setString(1, mem);
+			rs = ps.executeQuery();
+    		while(rs.next()) {
+				roomName = rs.getString("CHR_NAME");
+				System.out.println("get_name함수 return roomName : " + roomName);
+				}		
+	    	}catch(SQLException e) {
+	    		System.out.println("get_name 에러");
+	    		e.printStackTrace();
+	    	} finally {
+				try {
+					if(ps != null) ps.close();
+					if(con != null) con.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			} return roomName;
+		}
 
 }
