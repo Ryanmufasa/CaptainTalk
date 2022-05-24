@@ -4,6 +4,7 @@
 
 	<div id="aa">
 		<h2>회원가입</h2>
+		<hr>
 			<form action="./joinok.jsp" method="post">
 				<table>
 				<tr>
@@ -26,12 +27,10 @@
 						<input type="text" name="tel3" size="5">
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="회원가입">
-					</td>
-				</tr>
-				</table>
+			</table>         
+			<br><hr>
+				<input type="submit" value="회원가입">
+				<button type="button" onclick="history.back()">취소</button>
 			</form>
 		</div>
 		
