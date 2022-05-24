@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>채팅</h3>
+	<textarea rows="10" cols="50" readonly id="ta2"></textarea>
+	
+	<h3>who></h3>
+	<input type="text" id="who2" value="이도령">
+	
+	<h3>보낼 글</h3>
+	<input type="text" id="chat2" onkeyup="enterkey()">
+	
+	<input type="submit" value="가자" onclick="kajaChool();" />
+	
+	<script>
+		function enterkey() {
+			if(window.event.keyCode == 13) {
+				kajaChool();
+			}
+		}
+		
+		function kajaChool() {
+			document.getElementById("who2").disabled=true; //이름한번 정하고 중간에 못바꿈
+			
+			ta2.value += "["+who2.value+"]" + chat2.value + "\n";
+			//이것하면 [홍길동] 이 먼저 출력되고 뒤에 홍길동이 보낸 chat이 출력
+							
+			ws2.send("["+who2.value+"]" + chat2.value);
+			//그리고 상대방에게도 [홍길동] 및 chat내용이 출력되게 하는 문장임
+			chat2.value = "";
+			chat2.focus();
+		}
+		
+	</script>
+	
+	<script>															//프로젝트경로명
+		/*
+			SSL일경우 wss://사용
+			SSL이란?
+			Secure Socket Layer 를 말하며 TLS(Transport Layer Security) 라고도함
+			SSL은 client와 server 사이의 통신등에 암호화를 사용하는것으로
+			smtp, ftp등 다양한 곳에서 사용
+			https는 http에 ssl을 적용한것
+		*/
+		var ws2 = new WebSocket("ws://192.168.0.7:8080/websocket/kaja");
+		/*
+			websocket 객체 ws1을 생성
+				+ ws://localhost:8080/WebTest/index.html/kaja 서버에 접속한다는
+				그리고 앞에 기술된
+				ws1.send("["+who1.value+"]" + chat1.value);에 의해 서버로 채팅이 전달
+		*/
+			//ws: 에 주의
+			//시작은 http로 ==> 중간에 websocket 으로 변환 (상호요청이 가능)
+		var chat2 = document.getElementById('chat2');
+		var ta2 = document.getElementById('ta2');
+		
+		ws2.onerror = function(aa){
+			alert('error');
+		};
+		
+		ws2.onopen = function(aa) {//연결이 잘 되었을때
+			//ta1.value += "채팅 시작하세요~"
+			alert("[채팅시작하세요]");
+			who2.focus();
+			who2.select();
+		};
+		
+		ws2.onmessage = function(aa) {
+			ta2.value += aa.data + "\n";
+		}
+		/*
+			ws.onclose = function() {
+			setTimeout(socketInit, 300); //websocket 다시연결
+		};
+		*/
+	</script>
+	
+	<!-- 
+		(1)귓속말을 작성해주세요
+		
+		(hint)
+	 -->
+</body>
+</html>
