@@ -74,7 +74,10 @@
 		<c:otherwise>
 		<tr>
 			<td colspan="2">
-			 ${msg }
+			<c:choose>
+			<c:when test=" ${!empty msg }">msg</c:when>
+			<c:when test="${empty msg }">입력한 추가 정보가 없습니다.</c:when>
+			</c:choose>
 			</td>
 		</tr>
 		</c:otherwise>

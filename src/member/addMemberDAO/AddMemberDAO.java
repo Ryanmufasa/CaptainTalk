@@ -153,6 +153,7 @@ public class AddMemberDAO {
 			if(ps.executeUpdate() != 0) { 
 				// 해당 mem_no 가 추가정보를 입력한적이 있으면 update
 				check = true;
+				System.out.println("회원정보 수정 완료");
 			} 
 			//else {
 				// 해당 mem_no가 추가정보를 입력한 적이 없으면 insert 실행

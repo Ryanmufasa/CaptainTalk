@@ -3,7 +3,7 @@
 <%@page import="member.addMemberDAO.AddMemberDAO"%>
 <%@page import="member.addMemberVO.AddMemberVO"%>
 <%@page import="member.memberVO.MemberVO"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.sql.Date" %>
 <%@page import="java.text.SimpleDateFormat"%>
     
 <%
@@ -51,8 +51,10 @@
 	if(vo.getInfonum() != 0){ // 추가한적이 있다면 infonum 이 있음. 
 		// update 사용해야 함. 
 		check = dao.updateInfo(vo);
+		System.out.println("추가정보 수정실행");	
 	} else {
 		check = dao.addInfo(vo); 
+		System.out.println("추가정보 입력실행 ");
 	}	
 	
 	if(check){ // insert 또는 update  true 반환시 

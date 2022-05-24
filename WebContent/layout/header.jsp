@@ -1,22 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8"); %>
-<% response.setContentType("text/html; charset-UTF-8"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-	header{
-		background-color : burlywood;
-		font-weight: bold;
-		font-size : 15pt;
-		height : 30px
-	}
-</style>
+<script src="${pageContext.request.contextPath }/resource/js/jquery-3.6.0.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resource/css/style.css">
+
+<title>CaptainTalk</title>
 </head>
 <body>
-	<header>게시판</header>
-</body>
-</html>
+	<div align="center">
+		<div class="header">
+			<c:choose>
+				<c:when test="${login  != null}"> 
+					<a href = "/CaptainTalk/member/myPage.jsp"> My Page </a> 
+					<a href = "/CaptainTalk/login/logout.jsp"> Logout </a>
+					<a href = "/CaptainTalk/chatRoom/roomList.jsp"> Chat Room </a>
+				</c:when>
+				<c:otherwise>
+					<a href ="/CaptainTalk/login/login.jsp"> login </a>
+					<a href ="/CaptainTalk/join/join.jsp"> join </a>
+				</c:otherwise>
+			</c:choose>
+			
+			<a href="/CaptainTalk/"> Home </a>
+		
+		
+		</div>
+		
+		<div class="main">

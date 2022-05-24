@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/layout/header.jsp" %>   
+<%@ include file="/layout/header.jsp" %> 
 <script>
 
 $(function(){
@@ -18,23 +18,30 @@ $(function(){
 })
 </script>
 
-
-	<form action="/CaptainTalk/login/check.jsp" method="post" name="login">
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id"></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="pw"></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="button" value="로그인" class="btnlogin">
-				</td>
+	<h2>로그인</h2>
+	<div id="mq1">
+		<img src="/CaptainTalk/picture/mainImg.jpg" width=200>
+	</div><br>
+	
+	<form action="check.jsp" method="post">
+	
+		<div class="input-box">
+			<input id="id" type="text" name="id" placeholder="아이디">
+			<label for="id">아이디</label>
+		</div>
+		
+		<div class="input-box">
+			<input id="pw" type="password" name="pw" placeholder="비밀번호">
+			<label for="pw">비밀번호</label>
+		</div>
+		<table cellspading="30%"> 
+			<tr> 
+				<td ><button class="btnlogin">로그인</button></td>
+				<td ><button onclick="location.href='/CaptainTalk/join/join.jsp'">회원가입</button></td>
+				<td ><button onclick="history.back()">취소</button></td>
 			</tr>
 		</table>
 	</form>
+
 	
 <%@ include file="/layout/footer.jsp"%>

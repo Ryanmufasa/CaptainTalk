@@ -9,32 +9,27 @@
 	MemberVO vo = (MemberVO)session.getAttribute("login");
 	
 	int no = vo.getMem_no();
-
 	AddMemberVO vo1 = new AddMemberVO();
-	vo1.setMem_no(no);
 	
 	String msg = null;
 	
-	vo1 = AddMemberDAO.getInstance().selectInfo(vo1);
-	// 해당 계정이 추가정보를 입력한 적이 있는지 확인한다.
-	if(vo1.getInfonum() != 0){
-		// 입력한 적이 있다면 
-		session.setAttribute("info",vo1);
-		// 세션에 info 라는 이름으로 vo1 객체를 저장한다.
-	}else{
-		msg = "입력한 추가 정보가 없습니다.";
+	if(session.getAttribute("info") != null){
+		// 세션저장된게 있으면 페이지 바로 넘어가기 
+		System.out.println("info 세션 있어서 바로 넘어감");
+	} else {
+		// 세션 저장 된게 없으면
+		// memberinfo 테이블에 DB있는지 조회
+		System.out.println("DB 입력된 추가정보 있음. ");
+		vo1.setMem_no(no);
+		vo1 = AddMemberDAO.getInstance().selectInfo(vo1);
+		
+		if(vo1.getInfonum() != 0){
+			// 입력한적이 있으면 세션에 객체 저장
+			session.setAttribute("info",vo1);
+			System.out.println("memberinfo 객체 세션 저장 ");
+		}	
 	}
-	
-	
-	request.setAttribute("msg",msg);
-	
+
 	pageContext.forward("meminfo.jsp");
 	
-	
-	
-	
-	
-	
-
-
 %>

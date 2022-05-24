@@ -7,10 +7,8 @@
 <%@page import="member.memberVO.MemberVO"%>
 <%@page session="true"%>
 <% request.setCharacterEncoding("UTF-8");
-
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
-
 	request.setCharacterEncoding("UTF-8");
 	
 	ChatVO ch = new ChatVO();
@@ -21,9 +19,6 @@
 	//버튼 table 첫 td 길이. list가 null일 때 300
 	//null이 아닐 때 200
 	int button_width = 0;
-	// 채팅방 이름을 입력받을 변수 선언
-	String roomName = "";
-	
 	
 	if(list==null){
 		button_width = 300;
@@ -51,28 +46,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 10초마다 페이지 초기화 // 새로운 채팅방이 생기거나 혹은 새 맴버가 채팅방에 입장했는지 확일할 수 있게-->
-<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="10">
+<!-- 4초마다 페이지 초기화 // 새로운 채팅방이 생겼나 4초마다 확일할 수 있게-->
+<meta charset="UTF-8" HTTP-EQUIV="refresh" CONTENT="8">
 <title>Insert title here</title>
 </head>
 <body align="center">
 	<script>
-	/* function roomName() {
-		location.href="roomName.jsp";
-		//window.open("./makeRoom/roomName.jsp","popupWin1",
+	function roomName() {
+		window.open("./makeRoom/roomName.jsp","popupWin1",
 				"width=370,height=200,top=20,left=350,loaction=no,menubar=0")
-		} */
+		}
 	
-	<%-- function startChat() {	
-		<% dao.join_room(roomName,name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
-		<% request.setAttribute("room",roomName); %>
-		location.href="main.jsp?room=<%=roomName%>";
-		//location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
-	} --%>
+	function startChat() {		
+		<% dao.join_room(room[i],name); %> /* 현재 사용자를 생성한 채팅방 db에 입력시킨다 */
+		<% request.setAttribute("room",room); %>
+		location.href="main.jsp"; //채팅방으로 이동//url 따로 만드는 법 강구
+	}
 	</script>
 	
 	<h2>채팅방 목록</h2>
-	<form method="get">
 	<table border="1" width="400" align="center">
 		<tr>
 			<td>채팅방</td>
@@ -91,22 +83,19 @@
 		<%	} else {
 				ch = list.get(i);
 				room[i] = ch.getChr_name();
-				roomName = room[i];
 		%>
 		<tr>
-			<!-- 채팅방 이름을 클릭하면 main.jsp?room=roomName.jsp로 이동 -->
-			<td><a href="main.jsp?room=<%=roomName%>"><%=roomName %></a>
-			<%-- <td><button onClick="startChat()"><%roomName = room[i];%><%=room[i] %></button></td> --%>
+			<!-- 채팅방 이름을 클릭하면 startChat()실행 -->
+			<td><button onClick="startChat()"><%=room[i] %></button></td>
 			<td><%=ch.getChr_mem() %></td>
 		<tr>
 		<% 		} //if-end 
 			} //for-end %>
 	</table>
-	</form>
 	
 	<table border=0  width="400" align="center">
 		<tr>
-		<td width="<%=button_width %>"><button onClick="location.href='makeRoom/roomName.jsp';">채팅방 생성</button></td>
+		<td width="<%=button_width %>"><button onClick="roomName()">채팅방 생성</button></td>
 		<!-- 페이지 직접 새로고침 -->
 		<td><button onClick="window.location.href=window.location.href">새로고침</button></td>
 		</tr>
