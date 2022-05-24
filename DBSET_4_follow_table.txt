@@ -1,0 +1,8 @@
+
+alter table follow rename column fol_datetime to fol_date;
+rename follew_seq to follow_seq;
+
+insert into follow values(follow_seq.nextval, ? , ? ,sysdate);
+
+-- ? 에 mem_no, target_mem_no 를 넣어 테스트 데이터를 생성후 commit
+
