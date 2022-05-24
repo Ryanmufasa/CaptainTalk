@@ -1,37 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/layout/header.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	html, body {
-		height:100%;
-		margin: 0;
-		padding: 0;
-		color: white;
-	}
-	
-	#aa {
-		background-size: cover;
-		background-image: url("../picture/join2.jpg");
-		background-position: center;
-		min-height: 100%;
-		border: 0;
-		padding: 0;
-	}
-</style>
-</head>
-<body>
+
+
 	<div id="aa" align="center">
 		<h2>추가 정보 입력</h2>
 			<form action="meminfoDbAdd.jsp" method="post">
 			<table border="1" style="margin:auto; text-align:center" width="390" height="360">
 				<tr height="60">
 					<td>성별</td>
-					<td><input type="text" name="sex" style="width:260px; height:22px; font-size:15px;"></td>
+					<td>
+					<input type="radio" name="sex" value="1"/>남성
+					<input type="radio" name="sex" value="2"/>여성
+					<input type="radio" name="sex" value="0"/>비공개
+					</td>
 				</tr>
 				<tr height="60">
 					<td>생일</td>
@@ -53,7 +36,7 @@
 					<td colspan="2"><input type="submit" value="회원정보수정" style="width:280pt; height:32pt"></td>
 				</tr>
 			</table>
-			</form>
+		</form>
 	</div>
-</body>
-</html>
+
+<%@ include file="/layout/footer.jsp"%>

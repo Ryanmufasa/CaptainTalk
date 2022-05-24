@@ -2,6 +2,7 @@ package chat.chatVO;
 
 public class ChatVO {
 
+
 	private String chr_name;
 	private String chr_mem;
 	
@@ -31,6 +32,7 @@ public class ChatVO {
 	public void setChr_mem(String chr_mem) {
 		this.chr_mem = chr_mem;
 	}
-
+	
+	
 	
 }
