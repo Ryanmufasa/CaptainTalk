@@ -102,7 +102,7 @@ public class KajaSocket { // KajaSocket.java
 				ArrayList<String> BelongMem = cao.getMemIds(room);
 				
 				for(int i = 0; i < BelongMem.size(); i++) {
-					String checkName = arrayList.get(i);
+					String checkName = BelongMemList.get(i);
 				//구한 아이디가 속해있는 채팅방이 현재 접속한 사용자가 들어있는 채팅방과 같은지 확인한다
 				//if(cao.getRoom(individual).equals(room)) {
 					//사용자 본인에게는 전송하지 않기 위해 체크를 한번 더 한다
