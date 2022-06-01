@@ -5,7 +5,14 @@
 <%@page import="chat.chatDAO.ChatDAO"%>
 <%@page import="chat.chatVO.ChatVO"%>
 <%@page import="member.memberVO.MemberVO"%>
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.*" %>
+
+<%-- <%@ page import="java.util.*" %>
+HashMap<String,String> map = new HashMap<String,String>(); --%>	 
 <%@page session="true"%>
+
 <% request.setCharacterEncoding("UTF-8");
 
 	MemberVO voo = (MemberVO)session.getAttribute("login");
@@ -15,7 +22,6 @@
 	ChatDAO dao = ChatDAO.getInstance();
 	
 	List<ChatVO> list = dao.selectAll();
-	
 	
 	//버튼 열 길이 변수 생성
 	int button_width = 0;
@@ -45,8 +51,8 @@
 	
 	//script 내 startChat()에서 사용하기 위해 local로 선언
 	int i = 0;
-	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +83,13 @@
 				ch = list.get(i);
 				room[i] = ch.getChr_name();
 				roomName = room[i];
+		
+				//채팅방에 어느 사용자가 들어있는지 파악하기 위한 배열 선언, 전역변수로 선언한다 %>
+				<%! String waitingRoom[][] = new String[15][2]; %>
+		<% 		for(int j = 0; i < 10; i++){
+					waitingRoom[j][0] = roomName;
+					waitingRoom[j][1] = name;
+				}	
 		%>
 		<tr>
 			<!-- 채팅방 이름을 클릭하면 main.jsp(채팅방)로 roomName을 room에 담아 넘겨주면서 페이지 이동 -->

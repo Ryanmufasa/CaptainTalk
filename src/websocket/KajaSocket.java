@@ -12,6 +12,10 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import classifyroom.classifyroomDAO.ClassifyroomDAO;
+import classifyroom.classifyroomVO.ClassifyroomVO;
+import member.memberVO.MemberVO;
+
 
 // javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/kaja") // 클라이언트는 이 주소로 서버에 접속한다.  // 서버에 접속하는 위치가 /kaja 라는 것. 
@@ -33,6 +37,8 @@ public class KajaSocket { // KajaSocket.java
 	
 
 	private static List<Session> listclient  = Collections.synchronizedList(new ArrayList<>());
+	//private static Set<Session> listclient = Collections.synchronizedSet(new HashSet<Session>());
+	//private static Map<String, Integer> mapclient = Collections.synchronizedMap(new HashMap<>());
 	
 	// 동기화 처리 // 하나 처리하고 lock, unlock 반복 
 	
@@ -73,17 +79,40 @@ public class KajaSocket { // KajaSocket.java
 	@OnMessage  // client 에서 chat 이 오면 여기서 처리  -> 채터 전부에게 chat 을 뿌리겠다 
 	public void onMessage(Session ses1, String chat2) throws IOException {
 		
+		ClassifyroomVO co = new ClassifyroomVO();
+		ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
+
+		String[] wantName = chat2.split("]");
+		int toName = wantName[0].length();
+		String name = wantName[0].substring(1,toName);
+		System.out.println("넘어온 chat으로부터의 Name : " + wantName);
+		
+		String room = cao.getRoom(name);
+		System.out.println("가자소켓 넘어온 ses가 있는 room :"+room);
+		
+		
+		
 		// 여기서 모든 세션에게 메시지를 전송한다. 
 		// synchronized : thread-safe 가 목적으로 해당 thread 만 처리됨 
 		synchronized (listclient) {  // 예) 둘이서 안녕 방가방가 채팅시 안방가녕방가  
 			for(Session imsi : listclient) {
 				
-				// 이걸 하지 않으면 내가 보낸 내용이 두번 출력 된다.  기본으로 텍스에 넣고, 전체 뿌려주고 ) 
-				if( !imsi.equals(ses1) ) { // 여기서 chat 보낸 사람은 빼고 전송하자는 것. 
-					imsi.getBasicRemote().sendText(chat2);
-					// 처음에는 홍길동 소켓 꺼내서 거기다가 chat을 send
-					// 그 다음에는 이도령 socket..
-					// 채팅방에 있는 사람들에게  '방가방가' 다 전달되는것. (보낸사람 제외)
+				String imsiName = (String)session.getAttribute("imsi");
+				
+				ArrayList<String> BelongMem = cao.getMemIds(room);
+				
+				for(int i = 0; i < BelongMem.size(); i++) {
+					String checkName = arrayList.get(i);
+				//구한 아이디가 속해있는 채팅방이 현재 접속한 사용자가 들어있는 채팅방과 같은지 확인한다
+				//if(cao.getRoom(individual).equals(room)) {
+					//사용자 본인에게는 전송하지 않기 위해 체크를 한번 더 한다
+					if( !imsi.equals(ses1) && checkName == imsiName) { 
+						imsi.getBasicRemote().sendText(chat2);
+						// 처음에는 홍길동 소켓 꺼내서 거기다가 chat을 send
+						// 그 다음에는 이도령 socket..
+						// 채팅방에 있는 사람들에게  메시지가 다 전달되는것. (보낸사람 제외)
+					//}
+					}
 				}
 			}
 		}

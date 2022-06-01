@@ -4,28 +4,32 @@
 <%@page import="chat.chatDAO.ChatDAO"%>
 <%@page import="chat.chatVO.ChatVO"%>
 <%@page import="member.memberVO.MemberVO"%>
+<%@page import="java.util.*" %>
 <%@page session="true"%>
 <% request.setCharacterEncoding("UTF-8");
 
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
-	System.out.println("voo로부터 전달받은 name:"+name);
-	
 	String room = request.getParameter("room");
-	System.out.println("waiting으로 부터 전달받은 room:"+room);
 	
 	ChatVO vo = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
+	//HashMap<String,String> hashmap = new HashMap<String,String>();
+	//hashmap.put(room,name);
+
+	//채팅방에 들어있는 사람을 구한다
 	String roomMem = dao.get_mem(room);
-	System.out.println("room으로부터 얻어낸 mem : "+roomMem);
 	
+	//현재 채팅방 VO를 세팅한다
 	vo.setChr_name(room);
 	vo.setChr_mem(roomMem);
 	
+	//현재 채팅방에 참여한 사용자를 더한다.
 	dao.join_room(vo, room, name);
-
+	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +63,7 @@
 				//알람권한을 허용받는다
 				setTimeout(function() {
 					kaja();
-				},3000); //n초후에 kaja를 호출
+				},2000); //2초후에 kaja를 호출
 			}
 		}
 		
@@ -108,9 +112,10 @@
 			ws1.send("[" + who1.value +"] " + chat1.value );
 			//그리고 상대방에게도 [홍길동] 및 채팅내용이 출력되게 함 
 			
+			hash1;
+			
 			chat1.value = "";
 			chat1.focus();
-			
 		}
 		
 		
@@ -126,6 +131,9 @@
 		
 		var chat1 = document.getElementById('chat1');
 		var ta1 = document.getElementById('ta1');
+		<%-- var hash1 = <%= hashmap%>;
+		var room = <%= room%>;
+		var name = <%= name%>; --%>
 		
 		ws1.onerror = function(aa){
 			alert('error');
