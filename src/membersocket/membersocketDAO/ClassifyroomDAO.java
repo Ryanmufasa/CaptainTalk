@@ -61,8 +61,8 @@ public class ClassifyroomDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				vo = new ClassifyroomVO();
-				vo.setRoom(rs.getString("room"));
-				vo.setMem_id(rs.getString("mem_id"));
+				vo.setCla_name(rs.getString("CLA_NAME"));
+				vo.setCla_mem(rs.getString("CLA_MEM"));
 
 				list.add(vo);
 			}
@@ -95,19 +95,19 @@ public class ClassifyroomDAO {
 	
 	
 	//사용자 아이디로 채팅방 이름을 구하는 함수
-	public String getRoom(String login) {
+	public String getRoom(String name) {
 		
 		String sql = null;
 		String roomName = null;
 		
     	try {
     		con = ds.getConnection();
-    		sql = "SELECT room FROM classifyroom WHERE mem_id LIKE ?";
+    		sql = "SELECT CLA_NAME FROM classifyroom WHERE CLA_MEM LIKE ?";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, login);
+			ps.setString(1, name);
 			rs = ps.executeQuery();
     		while(rs.next()) {
-				roomName = rs.getString("room");
+				roomName = rs.getString("CLA_NAME");
 				}		
 	    	}catch(SQLException e) {
 	    		e.printStackTrace();
@@ -124,41 +124,40 @@ public class ClassifyroomDAO {
 	
 	
 	//채팅방 이름으로 사용자 아이디 리스트를 리턴하는 함수
-		public ArrayList<String> getMemIds(String room){
+	public ArrayList<String> getMemIds(String room){
 
-			ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<String>();
 
-			String sql = "SELECT mem_id FROM classifyroom WHERE room LIKE ?";
-			String vo = null;
+		String sql = "SELECT CLA_MEM FROM classifyroom WHERE CLA_NAME LIKE ?";
+		String vo = null;
 
+		try {
+			con = ds.getConnection();
+			ps.setString(1, room);
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(vo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			try {
-				con = ds.getConnection();
-				ps.setString(1, room);
-				ps = con.prepareStatement(sql);
-				rs = ps.executeQuery();
-				while(rs.next()) {
-					list.add(vo);
-				}
-			}catch(SQLException e) {
-				e.printStackTrace();
-			}finally {
-				try {
-					if(rs != null) rs.close();
-					if(ps != null) ps.close();
-					if(con != null) con.close();
+				if(rs != null) rs.close();
+				if(ps != null) ps.close();
+				if(con != null) con.close();
 
-				} catch(SQLException e) {
-					e.printStackTrace();
-				}
+			} catch(SQLException e) {
+				e.printStackTrace();
 			}
-			if(list.isEmpty()) {
-				list = null;
-			}else {
-				list.trimToSize();
-			}
-			return list;
 		}
+		if(list.isEmpty()) {
+			list = null;
+		}else {
+			list.trimToSize();
+		}
+		return list;
+	}
 
 		
-	
 }	

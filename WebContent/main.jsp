@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="chat.chatDAO.ChatDAO"%>
 <%@page import="chat.chatVO.ChatVO"%>
+<%@page import="classifyroom.classifyroomDAO.ClassifyroomDAO"%>
+<%@page import="classifyroom.classifyroomVO.ClassifyroomVO"%>
 <%@page import="member.memberVO.MemberVO"%>
 <%@page import="java.util.*" %>
 <%@page session="true"%>
@@ -11,13 +13,21 @@
 	MemberVO voo = (MemberVO)session.getAttribute("login");
 	String name = voo.getMem_id();
 	String room = request.getParameter("room");
+
+	
+	ClassifyroomVO co = new ClassifyroomVO();
+	ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
+	//채팅방 별 들어있는 사용자를 한 쌍씩 대입한다. 
+	//메시지를 전송할 때 채팅방 별로 나눠 세션(사용자 id)별로 하나하나 전송하기 위해
+	co.setCla_name(room);
+	co.setCla_mem(name);
 	
 	ChatVO vo = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
 	
 	//HashMap<String,String> hashmap = new HashMap<String,String>();
 	//hashmap.put(room,name);
-
+	
 	//채팅방에 들어있는 사람을 구한다
 	String roomMem = dao.get_mem(room);
 	
@@ -27,6 +37,9 @@
 	
 	//현재 채팅방에 참여한 사용자를 더한다.
 	dao.join_room(vo, room, name);
+	
+	
+
 	
 %>
 
