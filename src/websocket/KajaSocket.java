@@ -53,12 +53,14 @@ public class KajaSocket {
 		System.out.println("가자소켓 넘어온 ses가 있는 room :"+room);
 		
 		for(int i = 0; i < listclient.size(); i++) {
+			//위 맵으로 부터 userSession을 키로 EndpointConfig값을 가져온다.	
 			if (listclient.containsKey(userSession)) {      
 				EndpointConfig config = listclient.get(userSession);
-					
+				
+				// HttpSessionConfigurator에서 설정한 session값을 가져온다.	
 				HttpSession session = 
 						(HttpSession)config.getUserProperties().get(HttpSessionConfigurator.Session);
-				String imsiName = (String) session.getAttribute("TestSession");	
+				String imsiName = (String) session.getAttribute("Login");
 				
 				synchronized (listclient2) {
 					for(Session imsi : listclient2) {
