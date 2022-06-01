@@ -16,7 +16,6 @@
 
 	
 	ClassifyroomVO co = new ClassifyroomVO();
-	ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
 	//채팅방 별 들어있는 사용자를 한 쌍씩 대입한다. 
 	//메시지를 전송할 때 채팅방 별로 나눠 세션(사용자 id)별로 하나하나 전송하기 위해
 	co.setCla_name(room);

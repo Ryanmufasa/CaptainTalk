@@ -83,13 +83,6 @@ HashMap<String,String> map = new HashMap<String,String>(); --%>
 				ch = list.get(i);
 				room[i] = ch.getChr_name();
 				roomName = room[i];
-		
-				//채팅방에 어느 사용자가 들어있는지 파악하기 위한 배열 선언, 전역변수로 선언한다 %>
-				<%! String waitingRoom[][] = new String[15][2]; %>
-		<% 		for(int j = 0; i < 10; i++){
-					waitingRoom[j][0] = roomName;
-					waitingRoom[j][1] = name;
-				}	
 		%>
 		<tr>
 			<!-- 채팅방 이름을 클릭하면 main.jsp(채팅방)로 roomName을 room에 담아 넘겨주면서 페이지 이동 -->
