@@ -141,11 +141,11 @@ public class ClassifyroomDAO {
 			ps = con.prepareStatement(sql);
 			name = "%" + name +"%";
 			ps.setString(1, name);
-			System.out.println("getRoom 내에서의 execute 실행 전");
+			System.out.println("getRoom 체크포인트 1");
 			rs = ps.executeQuery();
-			System.out.println("getRoom 내에서의 execute 실행 후");
+			System.out.println("getRoom 체크포인트 2");
     		while(rs.next()) {
-    			System.out.println("rs.next() 실행");
+    			System.out.println("getRoom 체크포인트 3");
 				roomName = rs.getString("CLA_NAME");
 				System.out.println("getRoom 함수 내에서의 roomName : "+roomName);
 				}		
@@ -211,13 +211,9 @@ public class ClassifyroomDAO {
 			try {
 				con = ds.getConnection();
 				sql = "DELETE FROM classifyroom WHERE cla_mem = ?";
-				System.out.println("체크지점 1");
 				ps = con.prepareStatement(sql);
-				System.out.println("체크지점 2");
 				ps.setString(1, name);
-				System.out.println("체크지점 3");
-				rs = ps.executeQuery();
-				System.out.println("체크지점 4");
+				ps.executeUpdate();
 				check = true;
 			} catch(SQLException e) {
 				e.printStackTrace();

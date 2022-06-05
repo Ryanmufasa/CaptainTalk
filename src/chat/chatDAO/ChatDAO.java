@@ -104,7 +104,7 @@ public class ChatDAO {
 				System.out.println("make_insert 할 사용자:"+mem);
 				ps.setString(2, mem);
 					System.out.println("make_room 시작");
-				rs = ps.executeQuery();
+				ps.executeUpdate();
 				System.out.println("채팅방 생성 성공");
 				check = true;  
 				
@@ -153,7 +153,7 @@ public class ChatDAO {
 				
 				ps.setString(1, add_mem);
 				ps.setString(2, room);
-				rs = ps.executeQuery();
+				ps.executeUpdate();
 				check = true;
 			} catch(SQLException e) {
 			   	System.out.println("join_room Exception");
@@ -180,7 +180,7 @@ public class ChatDAO {
 				ps.setString(1, '|'+name+'|');
 				ps.setString(2, room);
 				System.out.println("out_room 시작");
-				rs = ps.executeQuery();
+				ps.executeUpdate();
 				System.out.println("out_room 완료");
 				check = true;
 			} catch(SQLException e) {
@@ -268,12 +268,10 @@ public class ChatDAO {
     		sql = "SELECT CHR_NAME FROM CHAT WHERE CHR_MEM LIKE ?";
 			ps = con.prepareStatement(sql);
 			mem = "%"+mem+"%";
-			System.out.println("get_name함수 mem : " + mem);
 			ps.setString(1, mem);
 			rs = ps.executeQuery();
     		while(rs.next()) {
 				roomName = rs.getString("CHR_NAME");
-				System.out.println("get_name함수 return roomName : " + roomName);
 				}		
 	    	}catch(SQLException e) {
 	    		System.out.println("get_name 에러");

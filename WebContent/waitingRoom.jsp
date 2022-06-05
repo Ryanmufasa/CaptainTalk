@@ -5,8 +5,6 @@
 <%@page import="chat.chatDAO.ChatDAO"%>
 <%@page import="chat.chatVO.ChatVO"%>
 <%@page import="member.memberVO.MemberVO"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="java.util.Iterator"%>
 <%@page import="java.util.*" %>
 
 <%-- <%@ page import="java.util.*" %>
