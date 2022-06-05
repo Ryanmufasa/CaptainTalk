@@ -141,13 +141,9 @@ public class ClassifyroomDAO {
 			ps = con.prepareStatement(sql);
 			name = "%" + name +"%";
 			ps.setString(1, name);
-			System.out.println("getRoom 체크포인트 1");
 			rs = ps.executeQuery();
-			System.out.println("getRoom 체크포인트 2");
     		while(rs.next()) {
-    			System.out.println("getRoom 체크포인트 3");
 				roomName = rs.getString("CLA_NAME");
-				System.out.println("getRoom 함수 내에서의 roomName : "+roomName);
 				}		
 	    	}catch(SQLException e) {
 	    		System.out.println("getRoom 에러");
@@ -175,11 +171,16 @@ public class ClassifyroomDAO {
 
 		try {
 			con = ds.getConnection();
-			ps.setString(1, room);
 			ps = con.prepareStatement(sql);
+			System.out.println("getRoom 체크포인트 1");
+			ps.setString(1, room);
+			System.out.println("getRoom 체크포인트 2");
 			rs = ps.executeQuery();
+			System.out.println("getRoom 체크포인트 3");
 			while(rs.next()) {
+				vo = rs.getString("CLA_MEM");
 				list.add(vo);
+				System.out.println("getRoom 체크포인트 4");
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -204,7 +205,7 @@ public class ClassifyroomDAO {
 	
 	//채팅방 맴버에서 사용자 이름 제거
 	public boolean outRoom(String name) { 
-			
+		
 		boolean check = false;	
 		//사용자가 로그아웃하거나 강제로 프로그램이 종료되었을 때를 대비해 사용자가 있던 채팅방 목록 제거
 		String sql = null;
