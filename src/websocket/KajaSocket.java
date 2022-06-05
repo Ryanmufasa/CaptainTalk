@@ -39,42 +39,48 @@ public class KajaSocket {
 	
 	// 어노테이션의 장점 -> 코드를 짧게 쓰면서도 많은 걸 포함한 기능 구현을 가능하게 한다. 
 	
-	@SuppressWarnings("unlikely-arg-type")
 	@OnMessage  // client 에서 chat 이 오면 여기서 처리  -> 채터 전부에게 chat 을 뿌리겠다 
-	public void handleMessage(String message, Session userSession) throws IOException {  
+	public void onMessage(String message, Session userSession) throws IOException {  
 		
-		for(int i = 0; i < listclient.size(); i++) {
-			//위 해쉬맵으로 부터 userSession을 키로 EndpointConfig값을 가져온다.	
-			if (listclient.containsKey(userSession)) {      
-				EndpointConfig config = listclient.get(userSession);
-				
-				// HttpSessionConfigurator에서 설정한 session값을 가져온다.	
-				HttpSession session = 
-						(HttpSession)config.getUserProperties().get(HttpSessionConfigurator.Session);
-				
-				//가져온 session으로부터 imsiName 변수에 사용자 이름을 담는다.
-				MemberVO vo = (MemberVO)session.getAttribute("login");
-				String imsiName = vo.getMem_id();
-				
-				ClassifyroomVO co = new ClassifyroomVO();
-				ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
+		ClassifyroomVO co = new ClassifyroomVO();
+		ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
+		
+		String[] wantName = message.split("]");
+		int toName = wantName[0].length();
+		String name = wantName[0].substring(1,toName);
+		System.out.println("넘어온 chat으로부터의 Name : " + name);
+		
+		//메시지를 보낸 사용자가 들어있는 방을 구한다
+		String room = cao.getRoom(name);
+		
+		//메시지를 전달한 사용자가 들어있는 방의 사용자들을 리스트로 구한다
+		ArrayList<String> ids = cao.getMemIds(room);
 
-				//메시지를 보낸 사용자가 들어있는 방을 구한다
-				String room = cao.getRoom(imsiName);
-				
-				//메시지를 전달한 사용자가 들어있는 방의 사용자들을 리스트로 구한다
-				ArrayList<String> ids = cao.getMemIds((room));
-				
-				//현재 사용자를 제외한 사용자가 들어있는 방의 사용자 id와 해쉬맵으로 부터 얻은 세션의 id가 일치하면 메시지를 전달한다
-				//(= 같은 방 사용자들에게 메시지를 전달한다)
+		synchronized (listclient2) {
+			for(Session imsi : listclient2) {
 				for(String member : ids) {
-					if(!listclient.equals(userSession) && member == imsiName) {
-						((Session) listclient).getBasicRemote().sendText(message);
-					}
-				}		
-			}	
+					System.out.println("member : " + member);
+							
+					if (listclient.containsKey(imsi)) {      
+						EndpointConfig config = listclient.get(imsi);
+								
+						// HttpSessionConfigurator에서 설정한 session값을 가져온다.	
+						HttpSession session = 
+								(HttpSession)config.getUserProperties().get(HttpSessionConfigurator.Session);
+								
+						//가져온 session으로부터 imsiName 변수에 사용자 이름을 담는다.
+						MemberVO vo = (MemberVO)session.getAttribute(member);
+						String imsiName = vo.getMem_id();
+		
+						if(!imsi.equals(userSession) && member == imsiName) {
+							imsi.getBasicRemote().sendText(message);
+						}
+					}		
+				}	
+			}
 		}
 	}
+	
 	@OnError // data 전송시 에러 발생하면 
 	public void onError(Throwable e1) {
 		e1.printStackTrace();
