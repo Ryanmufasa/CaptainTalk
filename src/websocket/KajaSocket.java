@@ -42,17 +42,6 @@ public class KajaSocket {
 	@SuppressWarnings("unlikely-arg-type")
 	@OnMessage  // client 에서 chat 이 오면 여기서 처리  -> 채터 전부에게 chat 을 뿌리겠다 
 	public void handleMessage(String message, Session userSession) throws IOException {  
-			
-		ClassifyroomVO co = new ClassifyroomVO();
-		ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
-		System.out.println("넘어온 message : "+message);
-		
-		String[] wantName = message.split("]");
-		String name = wantName[0].substring(1);
-		System.out.println("message 전송자 : " + name);
-		
-		String room = cao.getRoom(name);
-		System.out.println("가자소켓 넘어온 ses가 있는 room :"+room);
 		
 		for(int i = 0; i < listclient.size(); i++) {
 			//위 해쉬맵으로 부터 userSession을 키로 EndpointConfig값을 가져온다.	
@@ -66,11 +55,12 @@ public class KajaSocket {
 				//가져온 session으로부터 imsiName 변수에 사용자 이름을 담는다.
 				MemberVO vo = (MemberVO)session.getAttribute("login");
 				String imsiName = vo.getMem_id();
-				System.out.println("imsiName(해쉬) : " + imsiName);
 				
-				//String imsiName = (String) session.getAttribute("login");
-				//System.out.println("imsiName(해쉬) : " + imsiName);
-				
+				ClassifyroomVO co = new ClassifyroomVO();
+				ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
+
+				//메시지를 보낸 사용자가 들어있는 방을 구한다
+				String room = cao.getRoom(imsiName);
 				
 				//메시지를 전달한 사용자가 들어있는 방의 사용자들을 리스트로 구한다
 				ArrayList<String> ids = cao.getMemIds((room));
@@ -81,23 +71,7 @@ public class KajaSocket {
 					if(!listclient.equals(userSession) && member == imsiName) {
 						((Session) listclient).getBasicRemote().sendText(message);
 					}
-				}
-				
-				
-//				synchronized (listclient2) {
-//					for(Session imsi : listclient2) {
-//						
-//						ArrayList<String> BelongMem = cao.getMemIds(room);
-//						for(int j = 0; j < BelongMem.size(); i++) {
-//							String checkName = BelongMem.get(i);
-//							if( !imsi.equals(userSession) && checkName == imsiName) { 
-//								imsi.getBasicRemote().sendText(message);
-//							}
-//						}
-//					}
-//				}
-				
-				
+				}		
 			}	
 		}
 	}
