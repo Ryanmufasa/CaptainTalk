@@ -14,22 +14,21 @@
 	String name = voo.getMem_id();
 	String room = request.getParameter("room");
 
-	
+
 	ClassifyroomVO co = new ClassifyroomVO();
+	ClassifyroomDAO cao = ClassifyroomDAO.getInstance();
 	//채팅방 별 들어있는 사용자를 한 쌍씩 대입한다. 
 	//메시지를 전송할 때 채팅방 별로 나눠 세션(사용자 id)별로 하나하나 전송하기 위해
 	co.setCla_name(room);
 	co.setCla_mem(name);
+	//채팅방 별 사용자를 classifyroom DB에 대입한다
+	cao.clas_room(co);
 	
 	ChatVO vo = new ChatVO();
 	ChatDAO dao = ChatDAO.getInstance();
-	
-	//HashMap<String,String> hashmap = new HashMap<String,String>();
-	//hashmap.put(room,name);
-	
+
 	//채팅방에 들어있는 사람을 구한다
 	String roomMem = dao.get_mem(room);
-	
 	//현재 채팅방 VO를 세팅한다
 	vo.setChr_name(room);
 	vo.setChr_mem(roomMem);
